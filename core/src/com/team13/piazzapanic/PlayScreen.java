@@ -57,6 +57,8 @@ public class PlayScreen implements Screen {
     private final Chef chef1;
     private final Chef chef2;
 
+    private final Chef chef3;
+
     private Chef controlledChef;
 
     public ArrayList<Order> ordersArray;
@@ -104,6 +106,7 @@ public class PlayScreen implements Screen {
 
         chef1 = new Chef(this.world, 31.5F,65);
         chef2 = new Chef(this.world, 128,65);
+        chef3 = new Chef(this.world, 128,100);
         controlledChef = chef1;
         world.setContactListener(new WorldContactListener());
         controlledChef.notificationSetBounds("Down");
@@ -145,7 +148,11 @@ public class PlayScreen implements Screen {
             if (controlledChef.equals(chef1)) {
                 controlledChef.b2body.setLinearVelocity(0, 0);
                 controlledChef = chef2;
-            } else {
+            } else if (controlledChef.equals(chef2)){
+                controlledChef.b2body.setLinearVelocity(0, 0);
+                controlledChef = chef3;
+            }
+            else if (controlledChef.equals(chef3)){
                 controlledChef.b2body.setLinearVelocity(0, 0);
                 controlledChef = chef1;
             }
@@ -157,6 +164,10 @@ public class PlayScreen implements Screen {
             } else if(chef2.getUserControlChef()) {
                 controlledChef.b2body.setLinearVelocity(0, 0);
                 controlledChef = chef2;
+            }
+            else if(chef3.getUserControlChef()) {
+                controlledChef.b2body.setLinearVelocity(0, 0);
+                controlledChef = chef3;
             }
         }
         if (controlledChef.getUserControlChef()) {
@@ -292,6 +303,7 @@ public class PlayScreen implements Screen {
         renderer.setView(gamecam);
         chef1.update(dt);
         chef2.update(dt);
+        chef3.update(dt);
         world.step(1/60f, 6, 2);
 
     }
@@ -377,6 +389,7 @@ public class PlayScreen implements Screen {
         updateOrder();
         chef1.draw(game.batch);
         chef2.draw(game.batch);
+        chef3.draw(game.batch);
         controlledChef.drawNotification(game.batch);
         if (plateStation.getPlate().size() > 0){
             for(Object ing : plateStation.getPlate()){
@@ -401,11 +414,21 @@ public class PlayScreen implements Screen {
                 }
             }
         }
+        if (!chef3.getUserControlChef()) {
+            if (chef3.getTouchingTile() != null && chef3.getInHandsIng() != null) {
+                if (chef3.getTouchingTile().getUserData() instanceof InteractiveTileObject) {
+                    chef3.displayIngStatic(game.batch);
+                }
+            }
+        }
         if (chef1.previousInHandRecipe != null){
             chef1.displayIngDynamic(game.batch);
         }
         if (chef2.previousInHandRecipe != null){
             chef2.displayIngDynamic(game.batch);
+        }
+        if (chef3.previousInHandRecipe != null){
+            chef3.displayIngDynamic(game.batch);
         }
         game.batch.end();
     }
