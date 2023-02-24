@@ -13,7 +13,9 @@ public class Bun extends Ingredient{
      The Bun class sets the prepared flag to true in the constructor, and sets up an ArrayList of textures for its different skins.
 
      */
-
+    /*
+    Testing
+    */
     public Bun(float prepareTime, float cookTime) {
         super(prepareTime, cookTime);
         super.setPrepared();
