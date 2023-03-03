@@ -142,9 +142,10 @@ public class PlayScreen implements Screen {
      */
 
     public void handleInput(float dt){
-        if ((Gdx.input.isKeyJustPressed(Input.Keys.R) &&
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R) &&
                 chef1.getUserControlChef() &&
-                chef2.getUserControlChef())) {
+                chef2.getUserControlChef() &&
+                chef3.getUserControlChef()) {
             if (controlledChef.equals(chef1)) {
                 controlledChef.b2body.setLinearVelocity(0, 0);
                 controlledChef = chef2;
