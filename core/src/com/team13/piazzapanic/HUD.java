@@ -21,23 +21,26 @@ public class HUD implements Disposable {
 
     private Integer score;
 
+    public Integer reputationPoints;
     public String timeStr;
 
     public Table table;
 
     Label timeLabelT;
     Label timeLabel;
-
     Label scoreLabel;
     Label scoreLabelT;
     Label orderNumL;
     Label orderNumLT;
+    Label reputationLabelT;
+    Label reputationLabel;
 
     public HUD(SpriteBatch sb){
         this.scenarioComplete = Boolean.FALSE;
         worldTimerM = 0;
         worldTimerS = 0;
         score = 0;
+        reputationPoints = 100;
         timeStr = String.format("%d", worldTimerM) + " : " + String.format("%d", worldTimerS);
         float fontX = 0.5F;
         float fontY = 0.3F;
@@ -59,14 +62,19 @@ public class HUD implements Disposable {
         scoreLabel = new Label(String.format("%d", score), new Label.LabelStyle(font, Color.WHITE));
         scoreLabelT = new Label("MONEY", new Label.LabelStyle(font, Color.BLACK));
 
+        reputationLabelT = new Label("REPUTATION", new Label.LabelStyle(font, Color.BLACK));
+        reputationLabel = new Label(String.format("%d", reputationPoints), new Label.LabelStyle(font, Color.WHITE));
+
 
         table.add(timeLabelT).padTop(2).padLeft(2);
         table.add(scoreLabelT).padTop(2).padLeft(2);
         table.add(orderNumLT).padTop(2).padLeft(2);
+        table.add(reputationLabelT).padTop(2).padLeft(2);
         table.row();
         table.add(timeLabel).padTop(2).padLeft(2);
         table.add(scoreLabel).padTop(2).padLeft(2);
         table.add(orderNumL).padTop(2).padLeft(2);
+        table.add(reputationLabel).padTop(2).padLeft(2);
 
         table.left().top();
         stage.addActor(table);

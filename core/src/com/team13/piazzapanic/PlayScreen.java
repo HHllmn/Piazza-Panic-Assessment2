@@ -90,7 +90,7 @@ public class PlayScreen implements Screen {
         createdOrder = Boolean.FALSE;
         gamecam = new OrthographicCamera();
         // FitViewport to maintain aspect ratio whilst scaling to screen size
-        gameport = new FitViewport(MainGame.V_WIDTH / MainGame.PPM, MainGame.V_HEIGHT / MainGame.PPM, gamecam);
+        gameport = new FitViewport(MainGame.V_WIDTH / MainGame.PPM , MainGame.V_HEIGHT / MainGame.PPM, gamecam);
         // create HUD for score & time
         hud = new HUD(game.batch);
         // create orders hud
