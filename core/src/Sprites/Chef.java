@@ -44,6 +44,10 @@ public class Chef extends Sprite {
     private final Texture lettuceChef;
     private final Texture onionChef;
     private final Texture tomatoChef;
+    private final Texture potatoChef;
+    private final Texture cutPotatoChef;
+    private final Texture bakedPotatoChef;
+    //private final Texture doughChef;
     private final Texture choppedLettuceChef;
     private final Texture choppedOnionChef;
     private final Texture choppedTomatoChef;
@@ -96,13 +100,16 @@ public class Chef extends Sprite {
         lettuceChef = new Texture("Chef/Chef_holding_lettuce.png");
         onionChef = new Texture("Chef/Chef_holding_onion.png");
         tomatoChef = new Texture("Chef/Chef_holding_tomato.png");
+        potatoChef = new Texture("Chef/Chef_holding_potato.png");
+        cutPotatoChef = new Texture("Chef/Chef_holding_cut_potato.png");
+        bakedPotatoChef = new Texture("Chef/Chef_holding_baked_potato.png");
+        //doughChef = new Texture("Chef/Chef_holding_dough.png");
         choppedLettuceChef = new Texture("Chef/Chef_holding_chopped_lettuce.png");
         choppedOnionChef = new Texture("Chef/Chef_holding_chopped_onion.png");
         choppedTomatoChef = new Texture("Chef/Chef_holding_chopped_tomato.png");
         pattyChef = new Texture("Chef/Chef_holding_patty.png");
         completedBurgerChef = new Texture("Chef/Chef_holding_front.png");
         meatChef = new Texture("Chef/Chef_holding_meat.png");
-        saladChef = new Texture("Chef/Chef_holding_salad.png");
         saladChef = new Texture("Chef/Chef_holding_salad.png");
 
 
@@ -379,6 +386,14 @@ public class Chef extends Sprite {
                 skinNeeded = choppedTomatoChef;
             } else {
                 skinNeeded = tomatoChef;
+            }
+        } else if (item instanceof Potato) {
+            if (inHandsIng.isPrepared() && inHandsIng.isCooked()) {
+                skinNeeded = bakedPotatoChef;
+            } else if (inHandsIng.isPrepared()) {
+                skinNeeded = cutPotatoChef;
+            } else {
+                skinNeeded = potatoChef;
             }
         } else if (item instanceof Bun) {
             if (inHandsIng.isCooked()) {

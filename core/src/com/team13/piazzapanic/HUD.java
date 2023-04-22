@@ -21,6 +21,8 @@ public class HUD implements Disposable {
 
     private Integer score;
 
+    private Integer reputation;
+
     public String timeStr;
 
     public Table table;
@@ -123,7 +125,7 @@ public class HUD implements Disposable {
                 addScore = 100;
             }
             else{
-                addScore = 100 - (5 * (currentTime -expectedTime));
+                addScore = 100 - (5 * (currentTime - expectedTime));
                 if(addScore < 0){
                     addScore = 0;
                 }
@@ -156,7 +158,10 @@ public class HUD implements Disposable {
      * @param scenarioComplete Whether the game scenario has been completed.
      * @param orderNum The index number of the order.
      */
-    public void updateOrder(Boolean scenarioComplete, Integer orderNum){
+
+    // Scenario isn't the only way to play, there is an endless mode to be implemented as well.
+    // In this case scenario should be set to false always in endless mode for versions of this call to work. -Jonathon
+        public void updateOrder(Boolean scenarioComplete, Integer orderNum){
         if(scenarioComplete==Boolean.TRUE){
             orderNumL.remove();
             orderNumLT.remove();
@@ -168,6 +173,23 @@ public class HUD implements Disposable {
         table.left().top();
         orderNumL.setText(String.format("%d", orderNum));
         orderNumLT.setText("ORDER");
+        stage.addActor(table);
+
+    }
+
+    // needs to fail the game if the reputation hits 0.
+    public void updateReputation(Integer reputationNum){
+        if(reputationNum >= 0){
+            orderNumL.remove(); //ReputationNumL should be used here when implemented
+            orderNumLT.remove(); //ReputationNumLT should be used here when implemented
+            table.center().top();
+            stage.addActor(table);
+            return;
+        }
+
+        table.left().top();
+        orderNumL.setText(String.format("%d", reputationNum));
+        orderNumLT.setText("REP");
         stage.addActor(table);
 
     }

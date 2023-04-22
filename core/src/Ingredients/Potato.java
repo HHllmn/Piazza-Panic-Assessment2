@@ -15,8 +15,9 @@ public class Potato extends Ingredient{
     public Potato(float prepareTime, float cookTime) {
         super(prepareTime, cookTime);
         super.tex = new ArrayList<>();
-        tex.add(new Texture("Food/Potato.png"));
-        tex.add(new Texture("Food/Sliced_potato.png"));
+        super.tex.add(new Texture("Food/Potato.png"));
+        super.tex.add(new Texture("Food/Cut_potato.png"));
+        super.tex.add(new Texture("Food/Baked_potato.png"));
 
     }
 }
