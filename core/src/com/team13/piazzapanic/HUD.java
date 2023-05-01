@@ -16,10 +16,10 @@ import jdk.jfr.internal.tool.Main;
 
 public class HUD implements Disposable {
     public Stage stage;
-    private Boolean scenarioComplete;
+    public Boolean scenarioComplete; //Changed from private to public for testing
 
-    private Integer worldTimerM;
-    private Integer worldTimerS;
+    public Integer worldTimerM;//Changed from private to public for testing
+    public Integer worldTimerS;//Changed from private to public for testing
 
     private Integer money;
 
@@ -34,6 +34,7 @@ public class HUD implements Disposable {
 
     Label timeLabelT;
     Label timeLabel;
+
     Label scoreLabel;
     Label scoreLabelT;
     Label moneyLabel;

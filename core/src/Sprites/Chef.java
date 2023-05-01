@@ -76,9 +76,9 @@ public class Chef extends Sprite {
     private Ingredient inHandsIng;
     private Recipe inHandsRecipe;
 
-    private Boolean userControlChef;
+    public Boolean userControlChef;//Changed from private to public for testing
 
-    private final Sprite circleSprite;
+    public Sprite circleSprite;//Changed from private to public for testing, removed it being final
 
     private float notificationX;
     private float notificationY;

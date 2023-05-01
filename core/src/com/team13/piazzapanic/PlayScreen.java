@@ -54,11 +54,11 @@ public class PlayScreen implements Screen {
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer;
 
-    private final World world;
-    private final Chef chef1;
-    private final Chef chef2;
+    public final World world;//changed from private to public for testing
+    public final Chef chef1;//changed from private to public for testing
+    public final Chef chef2;//changed from private to public for testing
 
-    private final Chef chef3;
+    public final Chef chef3;//changed from private to public for testing
 
     private Chef controlledChef;
 
