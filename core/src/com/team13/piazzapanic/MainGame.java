@@ -27,36 +27,60 @@ public class MainGame extends Game {
 	 *     render: Renders the StartScreen or PlayScreen based on the value of isPlayScreen flag.
 	 * 	   dispose: Releases resources used by the MainGame class.
 	 */
-	public static final int V_WIDTH = 160;
+	public static final int V_WIDTH = 210;
 	public static final int V_HEIGHT = 160;
 	public static final int TILE_SIZE = 16;
 
 	public static final float PPM = 100;
 	public SpriteBatch batch;
 	public boolean isPlayScreen;
+	public boolean isStartScreen;
+
+	private PauseScreen pauseScreen;
+	public static StartScreen startScreen;
 	private PlayScreen playScreen;
-	private StartScreen startScreen;
+
+	public enum Mode{
+		SITUATION,
+		ENDLESS
+	}
+	public static Mode GameMode = Mode.SITUATION;
 
 	public MainGame(){
+		isStartScreen = true;
 		isPlayScreen = false;
+
 	}
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		startScreen = new StartScreen(this);
+		pauseScreen = new PauseScreen(this);
 		playScreen = new PlayScreen(this);
+		startScreen = new StartScreen((this));
 	}
 
 	@Override
 	public void render() {
 		super.render();
-		if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)){
-			isPlayScreen = !isPlayScreen;
+		if (Gdx.input.isKeyJustPressed((Input.Keys.M))) {
+			if(GameMode == Mode.SITUATION) GameMode = Mode.ENDLESS;
+			else if (GameMode == Mode.ENDLESS) GameMode = Mode.SITUATION;
+			PlayScreen.hud = new HUD(batch);
 		}
-		if (isPlayScreen) {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)){
+			if (isStartScreen == true) {
+				isStartScreen = false;
+				isPlayScreen = false;
+			}
+				isPlayScreen = !isPlayScreen;
+		}
+		if (isStartScreen){
+			setScreen(startScreen);
+		}
+		else if (isPlayScreen) {
 			setScreen(playScreen);
 		} else {
-			setScreen(startScreen);
+			setScreen(pauseScreen);
 		}
 	}
 

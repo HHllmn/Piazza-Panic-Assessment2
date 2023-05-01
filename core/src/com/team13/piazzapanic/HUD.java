@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import jdk.jfr.internal.tool.Main;
 
 
 public class HUD implements Disposable {
@@ -26,25 +27,28 @@ public class HUD implements Disposable {
     //    return (money);
     //}
 
-    private Integer reputation;
-
+    public Integer reputationPoints;
     public String timeStr;
 
     public Table table;
 
     Label timeLabelT;
     Label timeLabel;
-
+    Label scoreLabel;
+    Label scoreLabelT;
     Label moneyLabel;
     Label moneyLabelLT;
     Label orderNumL;
     Label orderNumLT;
+    Label reputationLabelT;
+    Label reputationLabel;
 
     public HUD(SpriteBatch sb){
         this.scenarioComplete = Boolean.FALSE;
         worldTimerM = 0;
         worldTimerS = 0;
         money = 0;
+        reputationPoints = 100;
         timeStr = String.format("%d", worldTimerM) + " : " + String.format("%d", worldTimerS);
         float fontX = 0.5F;
         float fontY = 0.3F;
@@ -66,14 +70,24 @@ public class HUD implements Disposable {
         moneyLabel = new Label(String.format("%d", money), new Label.LabelStyle(font, Color.WHITE));
         moneyLabelLT = new Label("MONEY", new Label.LabelStyle(font, Color.BLACK));
 
+        if (MainGame.GameMode == MainGame.Mode.ENDLESS) {
+            reputationLabelT = new Label("REPUTATION", new Label.LabelStyle(font, Color.BLACK));
+            reputationLabel = new Label(String.format("%d", reputationPoints), new Label.LabelStyle(font, Color.WHITE));
+        }
 
         table.add(timeLabelT).padTop(2).padLeft(2);
         table.add(moneyLabelLT).padTop(2).padLeft(2);
         table.add(orderNumLT).padTop(2).padLeft(2);
+        if (MainGame.GameMode == MainGame.Mode.ENDLESS){
+            table.add(reputationLabelT).padTop(2).padLeft(2);
+        }
         table.row();
         table.add(timeLabel).padTop(2).padLeft(2);
         table.add(moneyLabel).padTop(2).padLeft(2);
         table.add(orderNumL).padTop(2).padLeft(2);
+        if (MainGame.GameMode == MainGame.Mode.ENDLESS){
+            table.add(reputationLabel).padTop(2).padLeft(2);
+        }
 
 
         table.left().top();

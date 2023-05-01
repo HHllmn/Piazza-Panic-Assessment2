@@ -1,9 +1,13 @@
 package Recipe;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.team13.piazzapanic.MainGame;
+import com.team13.piazzapanic.PlayScreen;
 
 /**
  * The `Order` class extends the `Sprite` class and represents a recipe order
@@ -22,6 +26,7 @@ public class Order extends Sprite {
      * The image representing this order.
      */
     public Texture orderImg;
+    public float timeMade;
 
     /**
      * Constructor for the `Order` class.
@@ -33,6 +38,7 @@ public class Order extends Sprite {
         this.recipe = recipe;
         this.orderImg = orderImg;
         this.orderComplete = false;
+        this.timeMade = PlayScreen.timeSeconds;
     }
 
     /**
@@ -42,10 +48,10 @@ public class Order extends Sprite {
      * @param y     The y coordinate of the order image.
      * @param batch The `SpriteBatch` to add the order image to.
      */
-    public void create(float x, float y, SpriteBatch batch) {
+    public void create(float x, float y, SpriteBatch batch, int newY) {
         Sprite sprite = new Sprite(orderImg);
-        float adjustedX = x - (8 / MainGame.PPM);
-        float adjustedY = y + (7 / MainGame.PPM);
+        float adjustedX = x + (50 / MainGame.PPM);
+        float adjustedY = y - ((2 + newY*30) / MainGame.PPM);
         if (orderImg.toString().equals("Food/salad_recipe.png")) {
             sprite.setBounds(adjustedX, adjustedY, 53 / MainGame.PPM, 28 / MainGame.PPM);
             sprite.draw(batch);
@@ -59,5 +65,16 @@ public class Order extends Sprite {
             sprite.setBounds(adjustedX, adjustedY, 53 / MainGame.PPM, 28 / MainGame.PPM);
             sprite.draw(batch);
         }
+
+
+    }
+
+    private void addTime(){
+        Label timeLabel;
+        float fontX = 0.5F;
+        float fontY = 0.3F;
+        BitmapFont font = new BitmapFont();
+        timeLabel = new Label(String.format(String.valueOf(PlayScreen.timeSeconds - this.timeMade)), new Label.LabelStyle(font, Color.WHITE));
+        //timeLabel.draw(batch,1);
     }
 }
