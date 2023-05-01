@@ -65,6 +65,8 @@ public class Order extends Sprite {
             sprite.setBounds(adjustedX, adjustedY, 33 / MainGame.PPM, 28 / MainGame.PPM);
             sprite.draw(batch);
         }
+
+
     }
 
     private void addTime(){
@@ -73,5 +75,6 @@ public class Order extends Sprite {
         float fontY = 0.3F;
         BitmapFont font = new BitmapFont();
         timeLabel = new Label(String.format(String.valueOf(PlayScreen.timeSeconds - this.timeMade)), new Label.LabelStyle(font, Color.WHITE));
+        //timeLabel.draw(batch,1);
     }
 }
