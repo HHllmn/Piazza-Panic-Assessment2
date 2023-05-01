@@ -48,6 +48,25 @@ public class Order extends Sprite {
      * @param y     The y coordinate of the order image.
      * @param batch The `SpriteBatch` to add the order image to.
      */
+    public void create(float x, float y, SpriteBatch batch) {
+        Sprite sprite = new Sprite(orderImg);
+        float adjustedX = x + (50 / MainGame.PPM);
+        float adjustedY = y - (2 / MainGame.PPM);
+        if (orderImg.toString().equals("Food/salad_recipe.png")) {
+            sprite.setBounds(adjustedX, adjustedY, 53 / MainGame.PPM, 28 / MainGame.PPM);
+            sprite.draw(batch);
+        } else if (orderImg.toString().equals("Food/burger_recipe.png")) {
+            sprite.setBounds(adjustedX, adjustedY, 33 / MainGame.PPM, 28 / MainGame.PPM);
+            sprite.draw(batch);
+        } else if (orderImg.toString().equals("Food/jacket_potato_recipe.png")) {
+            sprite.setBounds(adjustedX, adjustedY, 53 / MainGame.PPM, 28 / MainGame.PPM);
+            sprite.draw(batch);
+        } else {
+            sprite.setBounds(adjustedX, adjustedY, 53 / MainGame.PPM, 28 / MainGame.PPM);
+            sprite.draw(batch);
+        }
+    }
+
     public void create(float x, float y, SpriteBatch batch, int newY) {
         Sprite sprite = new Sprite(orderImg);
         float adjustedX = x + (50 / MainGame.PPM);
