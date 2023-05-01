@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import jdk.jfr.internal.tool.Main;
 
 
 public class HUD implements Disposable {
@@ -61,20 +62,25 @@ public class HUD implements Disposable {
 
         scoreLabel = new Label(String.format("%d", score), new Label.LabelStyle(font, Color.WHITE));
         scoreLabelT = new Label("MONEY", new Label.LabelStyle(font, Color.BLACK));
-
-        reputationLabelT = new Label("REPUTATION", new Label.LabelStyle(font, Color.BLACK));
-        reputationLabel = new Label(String.format("%d", reputationPoints), new Label.LabelStyle(font, Color.WHITE));
+        if (MainGame.GameMode == MainGame.Mode.ENDLESS) {
+            reputationLabelT = new Label("REPUTATION", new Label.LabelStyle(font, Color.BLACK));
+            reputationLabel = new Label(String.format("%d", reputationPoints), new Label.LabelStyle(font, Color.WHITE));
+        }
 
 
         table.add(timeLabelT).padTop(2).padLeft(2);
         table.add(scoreLabelT).padTop(2).padLeft(2);
         table.add(orderNumLT).padTop(2).padLeft(2);
-        table.add(reputationLabelT).padTop(2).padLeft(2);
+        if (MainGame.GameMode == MainGame.Mode.ENDLESS){
+            table.add(reputationLabelT).padTop(2).padLeft(2);
+        }
         table.row();
         table.add(timeLabel).padTop(2).padLeft(2);
         table.add(scoreLabel).padTop(2).padLeft(2);
         table.add(orderNumL).padTop(2).padLeft(2);
-        table.add(reputationLabel).padTop(2).padLeft(2);
+        if (MainGame.GameMode == MainGame.Mode.ENDLESS){
+            table.add(reputationLabel).padTop(2).padLeft(2);
+        }
 
         table.left().top();
         stage.addActor(table);

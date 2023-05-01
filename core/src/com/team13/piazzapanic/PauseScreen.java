@@ -1,22 +1,20 @@
 package com.team13.piazzapanic;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.*;
 
 /**
  * This class implements the `Screen` interface and represents the start screen of the game.
  */
-public class StartScreen implements Screen {
+public class PauseScreen implements Screen {
     private final MainGame game;
-    private Texture backgroundImage = new Texture("situationImage.png");
-    private Sprite backgroundSprite;
+    private final Texture backgroundImage;
+    private final Sprite backgroundSprite;
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
@@ -25,10 +23,9 @@ public class StartScreen implements Screen {
      *
      * @param game the game object.
      */
-    public StartScreen(MainGame game) {
+    public PauseScreen(MainGame game) {
         this.game = game;
-        if (MainGame.GameMode == MainGame.Mode.SITUATION)backgroundImage = new Texture("situationImage.png");
-        else if (MainGame.GameMode == MainGame.Mode.ENDLESS)backgroundImage = new Texture("endlessImage.png");
+        backgroundImage = new Texture("pauseImage.png");
         backgroundSprite = new Sprite(backgroundImage);
         camera = new OrthographicCamera();
         viewport = new FitViewport(MainGame.V_WIDTH, MainGame.V_HEIGHT, camera);
@@ -40,9 +37,6 @@ public class StartScreen implements Screen {
      */
     @Override
     public void show() {
-        if (MainGame.GameMode == MainGame.Mode.SITUATION)backgroundImage = new Texture("situationImage.png");
-        else if (MainGame.GameMode == MainGame.Mode.ENDLESS)backgroundImage = new Texture("endlessImage.png");
-        backgroundSprite = new Sprite(backgroundImage);
         backgroundSprite.setSize(MainGame.V_WIDTH, MainGame.V_HEIGHT);
         backgroundSprite.setPosition(0, 0);
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
