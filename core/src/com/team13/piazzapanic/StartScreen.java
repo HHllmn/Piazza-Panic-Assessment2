@@ -12,11 +12,12 @@ import com.badlogic.gdx.utils.viewport.*;
  * This class implements the `Screen` interface and represents the start screen of the game.
  */
 public class StartScreen implements Screen {
-    private final MainGame game;
-    private final Texture backgroundImage;
-    private final Sprite backgroundSprite;
-    private final OrthographicCamera camera;
-    private final Viewport viewport;
+    //All of these variables were private, I have changed them to public
+    public final MainGame game;
+    public final Texture backgroundImage;
+    public final Sprite backgroundSprite;
+    public final OrthographicCamera camera;
+    public final Viewport viewport;
 
     /**
      * Constructor for StartScreen.

@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.team13.piazzapanic.MainGame;
+import com.team13.piazzapanic.Orders;
 import io.utils.MockGame;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.matchers.Or;
 
 import java.util.ArrayList;
 
@@ -76,5 +78,12 @@ public class RecipeTests {
         order.create(0,0, batch);
         verify(batch).draw(eq(texture), eq(-0.08000183f), eq(0.069999695f), anyFloat(), anyFloat());
 
+    }
+    @Test
+    public void OrdersTest(){
+        SpriteBatch batch = mock(SpriteBatch.class);
+        Orders order = new Orders(batch);
+        System.out.println(order.stage.getViewport());
+        Assert.assertNotNull(order.stage.getViewport());
     }
 }
