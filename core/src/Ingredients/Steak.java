@@ -19,4 +19,12 @@ public class Steak extends Ingredient{
         super.tex.add(new Texture("Food/Patty.png"));
         super.tex.add(new Texture("Food/Cooked_patty.png"));
     }
+
+    public Steak() {
+        super(2, 3);
+        super.tex = new ArrayList<>();
+        super.tex.add(new Texture("Food/Meat.png"));
+        super.tex.add(new Texture("Food/Patty.png"));
+        super.tex.add(new Texture("Food/Cooked_patty.png"));
+    }
 }

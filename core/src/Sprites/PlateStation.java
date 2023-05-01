@@ -31,6 +31,12 @@ public class PlateStation extends InteractiveTileObject {
     /** Static recipe for a salad */
     public static Recipe saladRecipe;
 
+    /** Static recipe for a jacketpotato */
+    public static Recipe jacketPotatoRecipe;
+
+    /** Static recipe for a pizza */
+    public static Recipe pizzaRecipe;
+
     /** Recipe that has been completed on the plate */
     private Recipe recipeDone;
 
@@ -48,6 +54,8 @@ public class PlateStation extends InteractiveTileObject {
         this.plate = new ArrayList<>();
         burgerRecipe = new BurgerRecipe();
         saladRecipe = new SaladRecipe();
+        jacketPotatoRecipe = new JacketPotatoRecipe();
+        pizzaRecipe = new PizzaRecipe();
         this.recipeDone = null;
     }
 
@@ -106,6 +114,48 @@ public class PlateStation extends InteractiveTileObject {
             if (saladSame) {
                 plate.clear();
                 recipeDone = saladRecipe;
+            }
+        }
+        if (plate.size() == jacketPotatoRecipe.getIngredients().size()) {
+            boolean jacketPotatoSame = true;
+            boolean jacketPotatoIngFound;
+            for (Ingredient ing : plate) {
+                jacketPotatoIngFound = false;
+                for (int j = 0; j < jacketPotatoRecipe.getIngredients().size(); j++) {
+                    if (ing.getClass().toString().equals(jacketPotatoRecipe.getIngredients().get(j).getClass().toString())) {
+                        if (ing.isPrepared()) {
+                            jacketPotatoIngFound = true;
+                        }
+                    }
+                }
+                if (!jacketPotatoIngFound) {
+                    jacketPotatoSame = false;
+                }
+            }
+            if (jacketPotatoSame) {
+                plate.clear();
+                recipeDone = jacketPotatoRecipe;
+            }
+        }
+        if (plate.size() == pizzaRecipe.getIngredients().size()) {
+            boolean pizzaSame = true;
+            boolean pizzaIngFound;
+            for (Ingredient ing : plate) {
+                pizzaIngFound = false;
+                for (int j = 0; j < pizzaRecipe.getIngredients().size(); j++) {
+                    if (ing.getClass().toString().equals(pizzaRecipe.getIngredients().get(j).getClass().toString())) {
+                        if (ing.isPrepared()) {
+                            pizzaIngFound = true;
+                        }
+                    }
+                }
+                if (!pizzaIngFound) {
+                    pizzaSame = false;
+                }
+            }
+            if (pizzaSame) {
+                plate.clear();
+                recipeDone = pizzaRecipe;
             }
         }
     }

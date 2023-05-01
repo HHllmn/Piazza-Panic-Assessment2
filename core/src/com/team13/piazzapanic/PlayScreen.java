@@ -1,6 +1,6 @@
 package com.team13.piazzapanic;
 
-import Ingredients.Ingredient;
+import Ingredients.*;
 import Recipe.Recipe;
 import Sprites.*;
 import Recipe.Order;
@@ -14,6 +14,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -61,6 +62,8 @@ public class PlayScreen implements Screen {
 
     private Chef controlledChef;
 
+    private Integer money;
+
     public ArrayList<Order> ordersArray;
 
     public PlateStation plateStation;
@@ -86,6 +89,7 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(MainGame game){
         this.game = game;
+        money = 0;
         scenarioComplete = Boolean.FALSE;
         createdOrder = Boolean.FALSE;
         gamecam = new OrthographicCamera();
@@ -112,6 +116,7 @@ public class PlayScreen implements Screen {
         controlledChef.notificationSetBounds("Down");
 
         ordersArray = new ArrayList<>();
+
 
     }
 
@@ -247,10 +252,14 @@ public class PlayScreen implements Screen {
                                 controlledChef.setInHandsIng(doughTile.getIngredient());
                                 controlledChef.setChefSkin(controlledChef.getInHandsIng());
                                 break;
+                            case "Sprites.CheeseStation":
+                                CheeseStation cheeseTile = (CheeseStation) tile;
+                                controlledChef.setInHandsIng(cheeseTile.getIngredient());
+                                controlledChef.setChefSkin(controlledChef.getInHandsIng());
+                                break;
                             case "Sprites.PlateStation":
                                 if(plateStation.getPlate().size() > 0 || plateStation.getCompletedRecipe() != null){
                                     controlledChef.pickUpItemFrom(tile);
-
                                 }
 
                         }
@@ -277,15 +286,31 @@ public class PlayScreen implements Screen {
                                 break;
                             case "Sprites.Pan":
                                 if(controlledChef.getInHandsIng() != null) {
-                                    if (controlledChef.getInHandsIng().isPrepared() && controlledChef.getInHandsIng().cookTime > 0){
-                                        controlledChef.setUserControlChef(false);
+                                    if ((controlledChef.getInHandsIng().getClass().toString().equals((new Bun()).getClass().toString())) || (controlledChef.getInHandsIng().getClass().toString().equals((new Steak()).getClass().toString()))) {
+                                        if (controlledChef.getInHandsIng().isPrepared() && controlledChef.getInHandsIng().cookTime > 0){
+                                            controlledChef.setUserControlChef(false);
+                                        }
                                     }
+                                }
+
+                                break;
+                            case "Sprites.Oven":
+                                Oven oventile = (Oven) tile;
+                                if(oventile.getIsPurchased()) {
+                                    if(controlledChef.getInHandsRecipe() != null) {
+                                        if (controlledChef.getInHandsRecipe().isCooked() == false){
+                                            controlledChef.setUserControlChef(false);
+                                        }
+                                    }
+                                }
+                                else { //this is where texture would change from PurchaseOven to Oven
+                                    oventile.setPurchased();
                                 }
 
                                 break;
                             case "Sprites.CompletedDishStation":
                                 if (controlledChef.getInHandsRecipe() != null){
-                                    if(controlledChef.getInHandsRecipe().getClass().equals(ordersArray.get(0).recipe.getClass())){
+                                    if((controlledChef.getInHandsRecipe().isCooked() == true) && (controlledChef.getInHandsRecipe().getClass().equals(ordersArray.get(0).recipe.getClass()))){
                                         controlledChef.dropItemOn(tile);
                                         ordersArray.get(0).orderComplete = true;
                                         controlledChef.setChefSkin(null);
@@ -323,18 +348,27 @@ public class PlayScreen implements Screen {
      * Creates the orders randomly and adds to an array, updates the HUD.
      */
     public void createOrder() {
-        int randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+        int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
         Texture burger_recipe = new Texture("Food/burger_recipe.png");
         Texture salad_recipe = new Texture("Food/salad_recipe.png");
+        Texture jacket_potato_recipe = new Texture("Food/jacket_potato_recipe.png");
+        Texture pizza_recipe = new Texture("Food/pizza_recipe.png");
         Order order;
 
         for(int i = 0; i<5; i++){
             if(randomNum==1) {
                 order = new Order(PlateStation.burgerRecipe, burger_recipe);
             }
-            else {
+            else if(randomNum==2) {
                 order = new Order(PlateStation.saladRecipe, salad_recipe);
             }
+            else if(randomNum==3) {
+                order = new Order(PlateStation.jacketPotatoRecipe, jacket_potato_recipe);
+            }
+            else {
+                order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
+            }
+            order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
             ordersArray.add(order);
             randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
         }
@@ -441,7 +475,18 @@ public class PlayScreen implements Screen {
         if (chef3.previousInHandRecipe != null){
             chef3.displayIngDynamic(game.batch);
         }
+
+
         game.batch.end();
+
+        //game.batch.begin();
+
+        //Texture successTexture = new Texture("Food/pizza.png");
+
+        //game.batch.draw(successTexture, (float) 1.039375, (float) 0.72125, 1, 1);
+
+        //game.batch.end();
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.team13.piazzapanic;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -19,7 +20,11 @@ public class HUD implements Disposable {
     private Integer worldTimerM;
     private Integer worldTimerS;
 
-    private Integer score;
+    private Integer money;
+
+    //public static boolean getMoney(){
+    //    return (money);
+    //}
 
     private Integer reputation;
 
@@ -30,8 +35,8 @@ public class HUD implements Disposable {
     Label timeLabelT;
     Label timeLabel;
 
-    Label scoreLabel;
-    Label scoreLabelT;
+    Label moneyLabel;
+    Label moneyLabelLT;
     Label orderNumL;
     Label orderNumLT;
 
@@ -39,7 +44,7 @@ public class HUD implements Disposable {
         this.scenarioComplete = Boolean.FALSE;
         worldTimerM = 0;
         worldTimerS = 0;
-        score = 0;
+        money = 0;
         timeStr = String.format("%d", worldTimerM) + " : " + String.format("%d", worldTimerS);
         float fontX = 0.5F;
         float fontY = 0.3F;
@@ -58,17 +63,18 @@ public class HUD implements Disposable {
         orderNumLT = new Label("ORDER", new Label.LabelStyle(font, Color.BLACK));
         orderNumL = new Label(String.format("%d", 0), new Label.LabelStyle(font, Color.WHITE));
 
-        scoreLabel = new Label(String.format("%d", score), new Label.LabelStyle(font, Color.WHITE));
-        scoreLabelT = new Label("MONEY", new Label.LabelStyle(font, Color.BLACK));
+        moneyLabel = new Label(String.format("%d", money), new Label.LabelStyle(font, Color.WHITE));
+        moneyLabelLT = new Label("MONEY", new Label.LabelStyle(font, Color.BLACK));
 
 
         table.add(timeLabelT).padTop(2).padLeft(2);
-        table.add(scoreLabelT).padTop(2).padLeft(2);
+        table.add(moneyLabelLT).padTop(2).padLeft(2);
         table.add(orderNumLT).padTop(2).padLeft(2);
         table.row();
         table.add(timeLabel).padTop(2).padLeft(2);
-        table.add(scoreLabel).padTop(2).padLeft(2);
+        table.add(moneyLabel).padTop(2).padLeft(2);
         table.add(orderNumL).padTop(2).padLeft(2);
+
 
         table.left().top();
         stage.addActor(table);
@@ -83,7 +89,7 @@ public class HUD implements Disposable {
         if(scenarioComplete){
             timeLabel.setColor(Color.GREEN);
             timeStr = String.format("%d", worldTimerM) + ":" + String.format("%d", worldTimerS);
-            timeLabel.setText(String.format("TIME: " + timeStr + " MONEY: %d", score));
+            timeLabel.setText(String.format("TIME: " + timeStr + " MONEY: %d", money));
             timeLabelT.setText("SCENARIO COMPLETE");
             table.center().top();
             stage.addActor(table);
@@ -130,16 +136,16 @@ public class HUD implements Disposable {
                     addScore = 0;
                 }
             }
-            score += addScore;
+            money += addScore;
         }
 
 
         if(scenarioComplete==Boolean.TRUE){
-            scoreLabel.setColor(Color.GREEN);
-            scoreLabel.setText("");
-            scoreLabelT.setText("");
-            scoreLabelT.remove();
-            scoreLabel.remove();
+            moneyLabel.setColor(Color.GREEN);
+            moneyLabel.setText("");
+            moneyLabelLT.setText("");
+            moneyLabelLT.remove();
+            moneyLabel.remove();
             table.center().top();
             stage.addActor(table);
             this.scenarioComplete = Boolean.TRUE;
@@ -147,7 +153,7 @@ public class HUD implements Disposable {
         }
 
         table.left().top();
-        scoreLabel.setText(String.format("%d", score));
+        moneyLabel.setText(String.format("%d", money));
         stage.addActor(table);
 
     }

@@ -17,10 +17,40 @@ public class Recipe extends Sprite {
     protected ArrayList<Ingredient> ingredients;
     protected Texture completedImg;
 
+
+    /**
+     * The time required to cook the recipe.
+     */
+    public float cookTime;
+
+    /**
+     * A flag to indicate whether the recipe has been cooked.
+     */
+    protected boolean amIReady;
+
+
     /**
      * Constructor for the Recipe class.
      */
     public Recipe(){
+        cookTime = 0;
+    }
+
+    /**
+     * Sets the flag indicating that the recipe has been cooked.
+     *
+     */
+    public void setCooked() {
+        amIReady = true;
+    }
+
+    /**
+     * Returns the value of the flag indicating whether the recipe has been cooked.
+     *
+     * @return A boolean indicating whether the recipe has been cooked.
+     */
+    public boolean isCooked() {
+        return amIReady;
     }
 
     /**

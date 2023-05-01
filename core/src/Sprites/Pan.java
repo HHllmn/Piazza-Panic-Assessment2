@@ -1,9 +1,12 @@
 package Sprites;
 
+import Ingredients.Ingredient;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.ArrayList;
 
 /**
  * Pan is a concrete class that extends the {@link InteractiveTileObject} class.
@@ -12,12 +15,12 @@ import com.badlogic.gdx.physics.box2d.World;
  */
 
 public class Pan extends InteractiveTileObject {
+
     public Pan(World world, TiledMap map, BodyDef bdef, Rectangle rectangle) {
         super(world, map, bdef, rectangle);
         fixture.setUserData(this);
 
     }
-
     public float getX(){
         return super.bdefNew.position.x;
     }

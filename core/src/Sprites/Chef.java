@@ -2,8 +2,10 @@ package Sprites;
 
 import Ingredients.*;
 import Recipe.BurgerRecipe;
+import Recipe.JacketPotatoRecipe;
 import Recipe.Recipe;
 import Recipe.SaladRecipe;
+import Recipe.PizzaRecipe;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -46,8 +48,14 @@ public class Chef extends Sprite {
     private final Texture tomatoChef;
     private final Texture potatoChef;
     private final Texture cutPotatoChef;
-    private final Texture bakedPotatoChef;
-    //private final Texture doughChef;
+    private final Texture cheeseChef;
+    private final Texture gratedCheeseChef;
+    private final Texture uncookedJacketPotatoChef;
+    private final Texture jacketPotatoChef;
+    private final Texture doughChef;
+    private final Texture rolledDoughChef;
+    private final Texture uncookedPizzaChef;
+    private final Texture pizzaChef;
     private final Texture choppedLettuceChef;
     private final Texture choppedOnionChef;
     private final Texture choppedTomatoChef;
@@ -102,8 +110,14 @@ public class Chef extends Sprite {
         tomatoChef = new Texture("Chef/Chef_holding_tomato.png");
         potatoChef = new Texture("Chef/Chef_holding_potato.png");
         cutPotatoChef = new Texture("Chef/Chef_holding_cut_potato.png");
-        bakedPotatoChef = new Texture("Chef/Chef_holding_baked_potato.png");
-        //doughChef = new Texture("Chef/Chef_holding_dough.png");
+        cheeseChef = new Texture("Chef/Chef_holding_cheese.png");
+        gratedCheeseChef = new Texture("Chef/Chef_holding_grated_cheese.png");
+        uncookedJacketPotatoChef = new Texture("Chef/Chef_holding_uncooked_jacket_potato.png");
+        jacketPotatoChef = new Texture("Chef/Chef_holding_jacket_potato.png");
+        doughChef = new Texture("Chef/Chef_holding_dough.png");
+        rolledDoughChef = new Texture("Chef/Chef_holding_rolled_dough.png");
+        uncookedPizzaChef = new Texture("Chef/Chef_holding_uncooked_pizza.png");
+        pizzaChef = new Texture("Chef/Chef_holding_pizza.png");
         choppedLettuceChef = new Texture("Chef/Chef_holding_chopped_lettuce.png");
         choppedOnionChef = new Texture("Chef/Chef_holding_chopped_onion.png");
         choppedTomatoChef = new Texture("Chef/Chef_holding_chopped_tomato.png");
@@ -199,23 +213,38 @@ public class Chef extends Sprite {
                     setChefSkin(inHandsIng);
                 }
             }
-        } else if (!userControlChef && getInHandsIng().prepareTime > 0) {
-            waitTimer += dt;
-            if (waitTimer > inHandsIng.prepareTime) {
-                inHandsIng.prepareTime = 0;
-                inHandsIng.setPrepared();
-                userControlChef = true;
-                waitTimer = 0;
-                setChefSkin(inHandsIng);
+        } else if (!userControlChef && getInHandsIng() != null) {
+            if (getInHandsIng().prepareTime > 0) {
+                waitTimer += dt;
+                if (waitTimer > inHandsIng.prepareTime) {
+                    inHandsIng.prepareTime = 0;
+                    inHandsIng.setPrepared();
+                    userControlChef = true;
+                    waitTimer = 0;
+                    setChefSkin(inHandsIng);
+                }
             }
-        } else if (!userControlChef && !chefOnChefCollision && getInHandsIng().isPrepared() && inHandsIng.cookTime > 0) {
-            waitTimer += dt;
-            if (waitTimer > inHandsIng.cookTime) {
-                inHandsIng.cookTime = 0;
-                inHandsIng.setCooked();
-                userControlChef = true;
-                waitTimer = 0;
-                setChefSkin(inHandsIng);
+        } else if (!userControlChef && !chefOnChefCollision && getInHandsIng() != null) {
+            if (getInHandsIng().isPrepared() && inHandsIng.cookTime > 0) {
+                waitTimer += dt;
+                if (waitTimer > inHandsIng.cookTime) {
+                    inHandsIng.cookTime = 0;
+                    inHandsIng.setCooked();
+                    userControlChef = true;
+                    waitTimer = 0;
+                    setChefSkin(inHandsIng);
+                }
+            }
+        } else if (!userControlChef && !chefOnChefCollision && getInHandsRecipe() != null) {
+            if (!getInHandsRecipe().isCooked() && inHandsRecipe.cookTime > 0) {
+                waitTimer += dt;
+                if (waitTimer > inHandsRecipe.cookTime) {
+                    inHandsRecipe.cookTime = 0;
+                    inHandsRecipe.setCooked();
+                    userControlChef = true;
+                    waitTimer = 0;
+                    setChefSkin(inHandsRecipe);
+                }
             }
         }
     }
@@ -388,12 +417,22 @@ public class Chef extends Sprite {
                 skinNeeded = tomatoChef;
             }
         } else if (item instanceof Potato) {
-            if (inHandsIng.isPrepared() && inHandsIng.isCooked()) {
-                skinNeeded = bakedPotatoChef;
-            } else if (inHandsIng.isPrepared()) {
+            if (inHandsIng.isPrepared()) {
                 skinNeeded = cutPotatoChef;
             } else {
                 skinNeeded = potatoChef;
+            }
+        } else if (item instanceof Cheese) {
+            if (inHandsIng.isPrepared()) {
+                skinNeeded = gratedCheeseChef;
+            } else {
+                skinNeeded = cheeseChef;
+            }
+        } else if (item instanceof Dough) {
+            if (inHandsIng.isPrepared()) {
+                skinNeeded = rolledDoughChef;
+            } else {
+                skinNeeded = doughChef;
             }
         } else if (item instanceof Bun) {
             if (inHandsIng.isCooked()) {
@@ -405,6 +444,20 @@ public class Chef extends Sprite {
             skinNeeded = completedBurgerChef;
         } else if (item instanceof SaladRecipe) {
             skinNeeded = saladChef;
+        } else if (item instanceof JacketPotatoRecipe) {
+            if (inHandsRecipe.isCooked()) {
+                skinNeeded = jacketPotatoChef;
+            }
+            else {
+                skinNeeded = uncookedJacketPotatoChef;
+            }
+        } else if (item instanceof PizzaRecipe) {
+            if (inHandsRecipe.isCooked()) {
+                skinNeeded = pizzaChef;
+            }
+            else {
+                skinNeeded = uncookedPizzaChef;
+            }
         }
     }
 
@@ -424,6 +477,10 @@ public class Chef extends Sprite {
             } else if (tile instanceof Pan) {
                 Pan tileNew = (Pan) tile;
                 inHandsIng.create(tileNew.getX(), tileNew.getY() - (0.01f / MainGame.PPM), batch);
+                setChefSkin(null);
+            } else if (tile instanceof Oven) {
+                Oven tileNew = (Oven) tile;
+                inHandsRecipe.create(tileNew.getX(), tileNew.getY() - (0.01f / MainGame.PPM), batch);
                 setChefSkin(null);
             }
         }

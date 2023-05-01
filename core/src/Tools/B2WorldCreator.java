@@ -82,12 +82,16 @@ public class B2WorldCreator {
                     new PotatoStation(world, map, bdef, rectangle);
                 } else if (mapObject.getName().equals("dough")) {
                     new DoughStation(world, map, bdef, rectangle);
+                } else if (mapObject.getName().equals("cheese")) {
+                    new CheeseStation(world, map, bdef, rectangle);
                 } else if (mapObject.getName().equals("pan1")) {
                     new Pan(world, map, bdef, rectangle);
                 } else if (mapObject.getName().equals("steak")) {
                     new SteakStation(world, map, bdef, rectangle);
                 } else if (mapObject.getName().equals("pan2")) {
                     new Pan(world, map, bdef, rectangle);
+                } else if (mapObject.getName().equals("oven")) {
+                    new Oven(world, map, bdef, rectangle);
                 } else if (mapObject.getName().equals("completed_dish")) {
                     new CompletedDishStation(world, map, bdef, rectangle);
                 } else if (mapObject.getName().equals("order_top")) {
