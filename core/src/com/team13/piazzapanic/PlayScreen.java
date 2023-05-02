@@ -261,6 +261,7 @@ public class PlayScreen implements Screen {
                             if(controlledChef.getInHandsIng() != null) {
                                 Ingredient cookedIngredient = controlledChef.getInHandsIng();
                                 cookedIngredient.setCooked();
+                                cookedIngredient.cookTime = 0;
                                 controlledChef.setInHandsIng(cookedIngredient);
                                 controlledChef.setChefSkin(controlledChef.getInHandsIng());
                                 powerupHashMap.remove(powerupTile.getPowerupSpawnId());
@@ -268,6 +269,7 @@ public class PlayScreen implements Screen {
                             } else if (controlledChef.getInHandsRecipe() != null && !controlledChef.getInHandsRecipe().isCooked()) {
                                 Recipe cookedRecipe = controlledChef.getInHandsRecipe();
                                 cookedRecipe.setCooked();
+                                cookedRecipe.cookTime = 0;
                                 controlledChef.setInHandsRecipe(cookedRecipe);
                                 controlledChef.setChefSkin(controlledChef.getInHandsRecipe());
                                 powerupHashMap.remove(powerupTile.getPowerupSpawnId());
@@ -622,10 +624,10 @@ public class PlayScreen implements Screen {
         }
 
         if(!powerupGenerated) {
-            //if (Math.round(timeSecondsCount) % 20 == 0 || Math.round(timeSecondsCount) == 0) {
+            if (Math.round(timeSecondsCount) % 20 == 0 || Math.round(timeSecondsCount) == 0) {
                 createPowerup();
                 powerupGenerated = !powerupGenerated;
-            //}
+            }
         }
 
         float period = 1f;
