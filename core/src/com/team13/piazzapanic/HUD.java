@@ -48,7 +48,7 @@ public class HUD implements Disposable {
         worldTimerM = 0;
         worldTimerS = 0;
         money = 0;
-        reputationPoints = 100;
+        reputationPoints = 3;
         timeStr = String.format("%d", worldTimerM) + " : " + String.format("%d", worldTimerS);
         float fontX = 0.5F;
         float fontY = 0.3F;

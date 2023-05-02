@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.team13.piazzapanic.MainGame;
 import com.team13.piazzapanic.PlayScreen;
@@ -26,7 +27,15 @@ public class Order extends Sprite {
      * The image representing this order.
      */
     public Texture orderImg;
-    public float timeMade;
+    public final float timeMade;
+    Texture timerTex;
+    Texture borderTexG, borderTexO, borderTexR;
+    Rectangle rect;
+    public static int orderTimeout = 30;
+    float timeSince;
+    Sprite timerSprite;
+
+
 
     /**
      * Constructor for the `Order` class.
@@ -38,7 +47,12 @@ public class Order extends Sprite {
         this.recipe = recipe;
         this.orderImg = orderImg;
         this.orderComplete = false;
-        this.timeMade = PlayScreen.timeSeconds;
+        this.timeMade = PlayScreen.timeSecondsTotal;
+        this.borderTexG = new Texture("borderTexG.png");
+        this.borderTexO = new Texture("borderTexO.png");
+        this.borderTexR = new Texture("borderTexR.png");
+        this.timerTex = borderTexG;
+        this.timeSince = 0;
     }
 
     /**
@@ -84,16 +98,18 @@ public class Order extends Sprite {
             sprite.setBounds(adjustedX, adjustedY, 53 / MainGame.PPM, 28 / MainGame.PPM);
             sprite.draw(batch);
         }
+        float width = 53/MainGame.PPM;
+        if (orderImg.toString().equals("Food/burger_recipe.png")) width = 33/MainGame.PPM;
 
 
-    }
-
-    private void addTime(){
-        Label timeLabel;
-        float fontX = 0.5F;
-        float fontY = 0.3F;
-        BitmapFont font = new BitmapFont();
-        timeLabel = new Label(String.format(String.valueOf(PlayScreen.timeSeconds - this.timeMade)), new Label.LabelStyle(font, Color.WHITE));
-        //timeLabel.draw(batch,1);
+        if (MainGame.GameMode == MainGame.Mode.ENDLESS) {
+            timerSprite = new Sprite(timerTex);
+            timeSince = PlayScreen.timeSecondsTotal - timeMade;
+            if ((timeSince/orderTimeout) < 0.3) timerTex = borderTexG;
+            else if ((timeSince/orderTimeout) < 0.6) timerTex = borderTexO;
+            else timerTex = borderTexR;
+            this.timerSprite.setBounds(adjustedX, adjustedY - (1/MainGame.PPM), width - (width*(timeSince/orderTimeout)), 2/MainGame.PPM);
+            this.timerSprite.draw(batch);
+        }
     }
 }

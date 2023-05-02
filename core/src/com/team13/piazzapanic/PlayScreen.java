@@ -77,11 +77,14 @@ public class PlayScreen implements Screen {
 
     public static float timeSeconds = 0f;
 
-    private float timeSecondsCount = 0f;
+    public static float timeSecondsCount = 0f;
+    public static float timeSecondsTotal = 0f;
 
     private float lastEndlessTime = -1;
 
-    private float orderDelay = 22;
+    private float orderDelay = 10;
+    private boolean gameStarted = false;
+    public boolean endlessOver = false;
 
     /**
      * PlayScreen constructor initializes the game instance, sets initial conditions for scenarioComplete and createdOrder,
@@ -371,7 +374,6 @@ public class PlayScreen implements Screen {
             ordersArray.add(order);
             randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
         }
-        hud.updateOrder(Boolean.FALSE, 1);
         timeSecondsCount = 0;
     }
 
@@ -390,7 +392,7 @@ public class PlayScreen implements Screen {
         ordersArray.add(order);
         randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
         hud.updateOrder(Boolean.FALSE,1);
-        timeSecondsCount =0;
+        timeSecondsCount = 0;
     }
 
     /**
@@ -421,6 +423,15 @@ public class PlayScreen implements Screen {
                 }
             }
         }
+        if(MainGame.GameMode == MainGame.Mode.ENDLESS) {
+            if (ordersArray.size() > 0) {
+                if (timeSecondsTotal - ordersArray.get(0).timeMade > Order.orderTimeout) {
+                    ordersArray.remove(0);
+                    hud.reputationPoints -= 1;
+                    if (hud.reputationPoints <= 0) endlessOver = Boolean.TRUE;
+                }
+            }
+        }
     }
 
     /**
@@ -440,6 +451,7 @@ public class PlayScreen implements Screen {
         //Execute handleEvent each 1 second
         timeSeconds +=Gdx.graphics.getRawDeltaTime();
         timeSecondsCount += Gdx.graphics.getDeltaTime();
+        timeSecondsTotal += Gdx.graphics.getDeltaTime();
         if (MainGame.GameMode == MainGame.Mode.SITUATION ) {
             if (Math.round(timeSecondsCount) == 5 && createdOrder == Boolean.FALSE) {
                 createdOrder = Boolean.TRUE;

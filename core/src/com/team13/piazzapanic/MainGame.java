@@ -62,7 +62,7 @@ public class MainGame extends Game {
 	@Override
 	public void render() {
 		super.render();
-		if (Gdx.input.isKeyJustPressed((Input.Keys.M))) {
+		if (Gdx.input.isKeyJustPressed((Input.Keys.M)) && isStartScreen) {
 			if(GameMode == Mode.SITUATION) GameMode = Mode.ENDLESS;
 			else if (GameMode == Mode.ENDLESS) GameMode = Mode.SITUATION;
 			PlayScreen.hud = new HUD(batch);
