@@ -212,6 +212,12 @@ public class HUD implements Disposable {
             return false;
         }
     }
+    public void addMoney(int addMoney) {
+        money += addMoney;
+        table.left().top();
+        moneyLabel.setText(String.format("%d", money));
+        stage.addActor(table);
+    }
 
     /**
      * Updates the order label.
@@ -240,19 +246,20 @@ public class HUD implements Disposable {
 
     // needs to fail the game if the reputation hits 0.
     public void updateReputation(Integer reputationNum){
-        if(reputationNum >= 0){
-            reputationLabel.remove(); //ReputationNumL should be used here when implemented
-            reputationLabelT.remove(); //ReputationNumLT should be used here when implemented
-            table.center().top();
-            stage.addActor(table);
-            return;
+        if(reputationNum <= 0){
+            //reputationLabel.remove(); //ReputationNumL should be used here when implemented
+            //reputationLabelT.remove(); //ReputationNumLT should be used here when implemented
+            //table.center().top();
+            //stage.addActor(table);
+
         }
-
-        table.left().top();
-        orderNumL.setText(String.format("%d", reputationNum));
-        orderNumLT.setText("REP");
-        stage.addActor(table);
-
+        else {
+            table.left().top();
+            reputationPoints = reputationNum;
+            reputationLabel.setText(String.format("%d", reputationNum));
+            reputationLabelT.setText("REPUTATION");
+            stage.addActor(table);
+        }
     }
 
     @Override

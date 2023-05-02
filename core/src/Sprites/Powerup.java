@@ -19,6 +19,21 @@ public class Powerup extends Sprite {
      */
     public Texture powerupImg;
     public int powerUpId;
+
+    private PowerUpType powerUpType;
+
+    public enum PowerUpType {
+        REPUTATION,
+        SPEED,
+        COOK,
+        MONEY,
+        PATIENCE
+    }
+
+    public PowerUpType getPowerUpType() {
+        return powerUpType;
+    }
+
     public int x;
     public int y;
 
@@ -27,9 +42,10 @@ public class Powerup extends Sprite {
      *
      * @param powerupImg The image representing this PowerUp.
      */
-    public Powerup(Texture powerupImg, int id, int x, int y) {
+    public Powerup(Texture powerupImg, int id, int x, int y, PowerUpType type) {
         this.powerupImg = powerupImg;
         this.powerUpId = id;
+        this.powerUpType = type;
         this.x = x;
         this.y = y;
     }

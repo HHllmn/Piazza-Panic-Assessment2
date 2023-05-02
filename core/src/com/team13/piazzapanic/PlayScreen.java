@@ -55,6 +55,8 @@ public class PlayScreen implements Screen {
     public static HUD hud;
 
     private final TiledMap map;
+
+    private float chefVelocity;
     private final OrthogonalTiledMapRenderer renderer;
 
     private final World world;
@@ -116,6 +118,7 @@ public class PlayScreen implements Screen {
         unlocksGenerated = Boolean.FALSE;
         powerupGenerated = Boolean.FALSE;
         unlockNewRecipes = Boolean.FALSE;
+        chefVelocity = 0.5f;
         totalOrdersDelivered = 0;
         gamecam = new OrthographicCamera();
         // FitViewport to maintain aspect ratio whilst scaling to screen size
@@ -212,16 +215,16 @@ public class PlayScreen implements Screen {
             float yVelocity = 0;
 
             if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-                yVelocity += 0.5f;
+                yVelocity += chefVelocity;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                xVelocity -= 0.5f;
+                xVelocity -= chefVelocity;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                yVelocity -= 0.5f;
+                yVelocity -= chefVelocity;
             }
             if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                xVelocity += 0.5f;
+                xVelocity += chefVelocity;
             }
             controlledChef.b2body.setLinearVelocity(xVelocity, yVelocity);
         } else {
@@ -243,7 +246,43 @@ public class PlayScreen implements Screen {
             if (controlledChef.getTouchingTile() != null) {
                 InteractiveTileObject tile = (InteractiveTileObject) controlledChef.getTouchingTile().getUserData();
                 String tileName = tile.getClass().getName();
-                if (controlledChef.getInHandsIng() == null && controlledChef.getInHandsRecipe() == null) {
+                if (tileName.equals("Sprites.PowerupSpawn")) {
+                    PowerupSpawn powerupTile = (PowerupSpawn) tile;
+                    if (powerupHashMap.containsKey(powerupTile.getPowerupSpawnId())) {
+                        if (powerupHashMap.get(powerupTile.getPowerupSpawnId()).getPowerUpType() == Powerup.PowerUpType.REPUTATION) {
+                            hud.updateReputation(hud.reputationPoints + 1);
+                            powerupHashMap.remove(powerupTile.getPowerupSpawnId());
+                            powerupGenerated = false;
+                        } else if (powerupHashMap.get(powerupTile.getPowerupSpawnId()).getPowerUpType() == Powerup.PowerUpType.SPEED) {
+                            chefVelocity = chefVelocity * (float) 1.2;
+                            powerupHashMap.remove(powerupTile.getPowerupSpawnId());
+                            powerupGenerated = false;
+                        } else if (powerupHashMap.get(powerupTile.getPowerupSpawnId()).getPowerUpType() == Powerup.PowerUpType.COOK) {
+                            if(controlledChef.getInHandsIng() != null) {
+                                Ingredient cookedIngredient = controlledChef.getInHandsIng();
+                                cookedIngredient.cookTime = 0;
+                                controlledChef.setInHandsIng(cookedIngredient);
+                                powerupHashMap.remove(powerupTile.getPowerupSpawnId());
+                                powerupGenerated = false;
+                            } else if (controlledChef.getInHandsRecipe() != null && !controlledChef.getInHandsRecipe().isCooked()) {
+                                Recipe cookedRecipe = controlledChef.getInHandsRecipe();
+                                cookedRecipe.cookTime = 0;
+                                controlledChef.setInHandsRecipe(cookedRecipe);
+                                powerupHashMap.remove(powerupTile.getPowerupSpawnId());
+                                powerupGenerated = false;
+                            }
+                        } else if (powerupHashMap.get(powerupTile.getPowerupSpawnId()).getPowerUpType() == Powerup.PowerUpType.MONEY) {
+                            hud.addMoney(ThreadLocalRandom.current().nextInt(1, 10) * 10);
+                            powerupHashMap.remove(powerupTile.getPowerupSpawnId());
+                            powerupGenerated = false;
+                        } else if (powerupHashMap.get(powerupTile.getPowerupSpawnId()).getPowerUpType() == Powerup.PowerUpType.PATIENCE) {
+
+
+                            powerupHashMap.remove(powerupTile.getPowerupSpawnId());
+                            powerupGenerated = false;
+                        }
+                    }
+                } else if (controlledChef.getInHandsIng() == null && controlledChef.getInHandsRecipe() == null) {
                     switch (tileName) {
                         case "Sprites.TomatoStation":
                             TomatoStation tomatoTile = (TomatoStation) tile;
@@ -503,9 +542,34 @@ public class PlayScreen implements Screen {
 
     public void createPowerup() { //THIS IS WORKING!! NOW JUST MAKE IT PROGRAMMATIC!!!
         Texture powerupTexture = new Texture("powerup_speed.png");
+        Powerup.PowerUpType type = Powerup.PowerUpType.SPEED;
+        switch (ThreadLocalRandom.current().nextInt(0, 4)) {
+            case 0:
+                powerupTexture = new Texture("powerup_speed.png");
+                type = Powerup.PowerUpType.SPEED;
+                break;
+            case 1:
+                powerupTexture = new Texture("powerup_reputation.png");
+                type = Powerup.PowerUpType.REPUTATION;
+                break;
+            case 2:
+                powerupTexture = new Texture("powerup_cook.png");
+                type = Powerup.PowerUpType.COOK;
+                break;
+            case 3:
+                powerupTexture = new Texture("powerup_money.png");
+                type = Powerup.PowerUpType.MONEY;
+                break;
+            case 4:
+                powerupTexture = new Texture("powerup_patience.png");
+                type = Powerup.PowerUpType.PATIENCE;
+                break;
+        }
         int randomNum = ThreadLocalRandom.current().nextInt(0, 5);
+        powerupTexture = new Texture("powerup_reputation.png");
+        type = Powerup.PowerUpType.REPUTATION;
         Powerup powerup;
-        powerup = new Powerup(powerupTexture, randomNum, powerupPositions.get(randomNum).x, powerupPositions.get(randomNum).y);
+        powerup = new Powerup(powerupTexture, randomNum, powerupPositions.get(randomNum).x, powerupPositions.get(randomNum).y, type);
         powerupHashMap.put(randomNum, powerup);
     }
 
