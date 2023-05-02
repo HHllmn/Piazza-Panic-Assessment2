@@ -276,8 +276,9 @@ public class PlayScreen implements Screen {
                             powerupHashMap.remove(powerupTile.getPowerupSpawnId());
                             powerupGenerated = false;
                         } else if (powerupHashMap.get(powerupTile.getPowerupSpawnId()).getPowerUpType() == Powerup.PowerUpType.PATIENCE) {
-
-
+                            for (Order o:ordersArray) {
+                                o.timeMade = timeSecondsTotal;
+                            }
                             powerupHashMap.remove(powerupTile.getPowerupSpawnId());
                             powerupGenerated = false;
                         }
