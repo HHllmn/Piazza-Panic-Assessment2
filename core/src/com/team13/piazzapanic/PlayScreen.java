@@ -430,6 +430,10 @@ public class PlayScreen implements Screen {
             } else {
                 order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
             }
+
+            int randomNumTwo = ThreadLocalRandom.current().nextInt(1, 24/MainGame.difficulty);
+            if (timeSecondsTotal > 120 && randomNumTwo < 4) ordersArray.add(order);
+            if (timeSecondsTotal > 120 && randomNumTwo == 1) ordersArray.add(order);
             ordersArray.add(order);
             randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
             //hud.updateOrder(Boolean.FALSE,totalOrdersDelivered);
@@ -465,6 +469,7 @@ public class PlayScreen implements Screen {
             else{
                 for (int i = 0; i < ordersArray.size(); i++) {
                     ordersArray.get(i).create(trayX, trayY, game.batch, i);
+                    if
                 }
             }
         }
