@@ -260,14 +260,16 @@ public class PlayScreen implements Screen {
                         } else if (powerupHashMap.get(powerupTile.getPowerupSpawnId()).getPowerUpType() == Powerup.PowerUpType.COOK) {
                             if(controlledChef.getInHandsIng() != null) {
                                 Ingredient cookedIngredient = controlledChef.getInHandsIng();
-                                cookedIngredient.cookTime = 0;
+                                cookedIngredient.setCooked();
                                 controlledChef.setInHandsIng(cookedIngredient);
+                                controlledChef.setChefSkin(controlledChef.getInHandsIng());
                                 powerupHashMap.remove(powerupTile.getPowerupSpawnId());
                                 powerupGenerated = false;
                             } else if (controlledChef.getInHandsRecipe() != null && !controlledChef.getInHandsRecipe().isCooked()) {
                                 Recipe cookedRecipe = controlledChef.getInHandsRecipe();
-                                cookedRecipe.cookTime = 0;
+                                cookedRecipe.setCooked();
                                 controlledChef.setInHandsRecipe(cookedRecipe);
+                                controlledChef.setChefSkin(controlledChef.getInHandsRecipe());
                                 powerupHashMap.remove(powerupTile.getPowerupSpawnId());
                                 powerupGenerated = false;
                             }
@@ -373,6 +375,7 @@ public class PlayScreen implements Screen {
                             if (oventile.getIsPurchased()) {
                                 if (controlledChef.getInHandsRecipe() != null) {
                                     if (controlledChef.getInHandsRecipe().isCooked() == false) {
+                                        controlledChef.setChefSkin(null); //MIGHT CAUSE BUG
                                         controlledChef.setUserControlChef(false);
                                     }
                                 }
@@ -542,17 +545,19 @@ public class PlayScreen implements Screen {
     }
 
     public void createPowerup() { //THIS IS WORKING!! NOW JUST MAKE IT PROGRAMMATIC!!!
-        Texture powerupTexture = new Texture("powerup_speed.png");
-        Powerup.PowerUpType type = Powerup.PowerUpType.SPEED;
+        Texture powerupTexture = new Texture("powerup_money.png");
+        Powerup.PowerUpType type = Powerup.PowerUpType.MONEY;
         switch (ThreadLocalRandom.current().nextInt(0, 4)) {
             case 0:
                 powerupTexture = new Texture("powerup_speed.png");
                 type = Powerup.PowerUpType.SPEED;
                 break;
             case 1:
-                powerupTexture = new Texture("powerup_reputation.png");
-                type = Powerup.PowerUpType.REPUTATION;
-                break;
+                if(MainGame.GameMode == MainGame.Mode.ENDLESS) {
+                    powerupTexture = new Texture("powerup_reputation.png");
+                    type = Powerup.PowerUpType.REPUTATION;
+                    break;
+                }
             case 2:
                 powerupTexture = new Texture("powerup_cook.png");
                 type = Powerup.PowerUpType.COOK;
@@ -567,8 +572,6 @@ public class PlayScreen implements Screen {
                 break;
         }
         int randomNum = ThreadLocalRandom.current().nextInt(0, 5);
-        powerupTexture = new Texture("powerup_reputation.png");
-        type = Powerup.PowerUpType.REPUTATION;
         Powerup powerup;
         powerup = new Powerup(powerupTexture, randomNum, powerupPositions.get(randomNum).x, powerupPositions.get(randomNum).y, type);
         powerupHashMap.put(randomNum, powerup);
@@ -619,10 +622,10 @@ public class PlayScreen implements Screen {
         }
 
         if(!powerupGenerated) {
-            if (Math.round(timeSecondsCount) % 20 == 0 || Math.round(timeSecondsCount) == 0) {
+            //if (Math.round(timeSecondsCount) % 20 == 0 || Math.round(timeSecondsCount) == 0) {
                 createPowerup();
                 powerupGenerated = !powerupGenerated;
-            }
+            //}
         }
 
         float period = 1f;
