@@ -545,29 +545,29 @@ public class PlayScreen implements Screen {
     }
 
     public void createPowerup() { //THIS IS WORKING!! NOW JUST MAKE IT PROGRAMMATIC!!!
-        Texture powerupTexture = new Texture("powerup_money.png");
+        Texture powerupTexture = new Texture("moneyPower.png");
         Powerup.PowerUpType type = Powerup.PowerUpType.MONEY;
         switch (ThreadLocalRandom.current().nextInt(0, 4)) {
             case 0:
-                powerupTexture = new Texture("powerup_speed.png");
+                powerupTexture = new Texture("speedPower.png");
                 type = Powerup.PowerUpType.SPEED;
                 break;
             case 1:
                 if(MainGame.GameMode == MainGame.Mode.ENDLESS) {
-                    powerupTexture = new Texture("powerup_reputation.png");
+                    powerupTexture = new Texture("reputationPower.png");
                     type = Powerup.PowerUpType.REPUTATION;
                     break;
                 }
             case 2:
-                powerupTexture = new Texture("powerup_cook.png");
+                powerupTexture = new Texture("blowtorchPower.png");
                 type = Powerup.PowerUpType.COOK;
                 break;
             case 3:
-                powerupTexture = new Texture("powerup_money.png");
+                powerupTexture = new Texture("moneyPower.png");
                 type = Powerup.PowerUpType.MONEY;
                 break;
             case 4:
-                powerupTexture = new Texture("powerup_patience.png");
+                powerupTexture = new Texture("timePower.png");
                 type = Powerup.PowerUpType.PATIENCE;
                 break;
         }
