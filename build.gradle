@@ -62,7 +62,7 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        
+
     }
 }
 
@@ -72,8 +72,8 @@ project(":tests") {
     sourceSets.test.java.srcDirs = ["src/"]
 
     dependencies {
-
         implementation project(":core")
+        implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
 
         implementation "junit:junit:4.+"
         implementation "org.mockito:mockito-core:1.9+"

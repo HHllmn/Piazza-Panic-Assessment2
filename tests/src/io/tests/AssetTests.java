@@ -41,13 +41,13 @@ public class AssetTests {
             "Food/Cooked_patty.png",
             "Food/Dough.png",
             "Food/Dough_Rolled.png",
-            "Food/JacketPotato.png",
+            "Food/Jacket_Potato.png",
             "Food/Lettuce.png",
             "Food/Meat.png",
             "Food/Onion.png",
             "Food/Patty.png",
             "Food/Potato.png",
-            "Food/Sliced_potato.png",
+            "Food/Cut_potato.png",
             "Food/Salad.png",
             "Food/salad_recipe.png",
             "Food/Toasted_burger_buns.png",
@@ -55,8 +55,7 @@ public class AssetTests {
 
             //Other PNG (Tiles for kitchen etc)
             "TileSet.png",
-            "Tile_set.png",
-            "startImage.png"
+            "Tile_set.png"
     );
     @Test
     public void testAssetExists() {

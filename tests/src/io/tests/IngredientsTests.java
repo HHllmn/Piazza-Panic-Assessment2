@@ -36,6 +36,10 @@ public class IngredientsTests {
     public void BunConstructorTest(){
         Bun bun = new Bun(pTime,cTime);
         Assert.assertTrue(bun.isPrepared());
+        Bun bun2 = new Bun();
+        Assert.assertTrue(bun2.isPrepared());
+        Assert.assertTrue(bun2.prepareTime == 0);
+        Assert.assertTrue(bun2.cookTime == 3);
     }
     @Test
     public void CheeseConstructorTest(){
@@ -73,6 +77,11 @@ public class IngredientsTests {
         Assert.assertFalse(steak.isPrepared());
         steak.setCooked();
         Assert.assertTrue(steak.isCooked());
+
+        Steak steak2 = new Steak();
+        Assert.assertFalse(steak2.isPrepared());
+        Assert.assertTrue(steak2.prepareTime == 2);
+        Assert.assertTrue(steak2.cookTime == 3);
     }
     @Test
     public void createIngredientTest(){

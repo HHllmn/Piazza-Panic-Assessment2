@@ -12,11 +12,11 @@ import com.badlogic.gdx.utils.viewport.*;
  * This class implements the `Screen` interface and represents the start screen of the game.
  */
 public class PauseScreen implements Screen {
-    private final MainGame game;
-    private final Texture backgroundImage;
-    private final Sprite backgroundSprite;
-    private final OrthographicCamera camera;
-    private final Viewport viewport;
+    public final MainGame game; //Changed from private to public for testing
+    public final Texture backgroundImage;//Changed from private to public for testing
+    public final Sprite backgroundSprite;//Changed from private to public for testing
+    public final OrthographicCamera camera;//Changed from private to public for testing
+    public final Viewport viewport;//Changed from private to public for testing
 
     /**
      * Constructor for StartScreen.

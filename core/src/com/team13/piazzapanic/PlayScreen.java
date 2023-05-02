@@ -367,7 +367,6 @@ public class PlayScreen implements Screen {
             else {
                 order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
             }
-            order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
             ordersArray.add(order);
             randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
         }

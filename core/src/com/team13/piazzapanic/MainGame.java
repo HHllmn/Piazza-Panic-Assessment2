@@ -36,9 +36,9 @@ public class MainGame extends Game {
 	public boolean isPlayScreen;
 	public boolean isStartScreen;
 
-	private PauseScreen pauseScreen;
+	public PauseScreen pauseScreen;//testing change
 	public static StartScreen startScreen;
-	private PlayScreen playScreen;
+	public PlayScreen playScreen;//testing change
 
 	public enum Mode{
 		SITUATION,
@@ -62,7 +62,7 @@ public class MainGame extends Game {
 	@Override
 	public void render() {
 		super.render();
-		if (Gdx.input.isKeyJustPressed((Input.Keys.M))) {
+		if (Gdx.input.isKeyJustPressed((Input.Keys.M)) && isStartScreen) {
 			if(GameMode == Mode.SITUATION) GameMode = Mode.ENDLESS;
 			else if (GameMode == Mode.ENDLESS) GameMode = Mode.SITUATION;
 			PlayScreen.hud = new HUD(batch);

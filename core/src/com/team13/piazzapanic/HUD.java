@@ -21,7 +21,7 @@ public class HUD implements Disposable {
     public Integer worldTimerM;//Changed from private to public for testing
     public Integer worldTimerS;//Changed from private to public for testing
 
-    private Integer money;
+    public Integer money;//Changed from private to public for testing
 
     //public static boolean getMoney(){
     //    return (money);
@@ -37,10 +37,10 @@ public class HUD implements Disposable {
 
     Label scoreLabel;
     Label scoreLabelT;
-    Label moneyLabel;
-    Label moneyLabelLT;
-    Label orderNumL;
-    Label orderNumLT;
+    public Label moneyLabel;//Changed for testing private-public
+    public Label moneyLabelLT;//Changed for testing private-public
+    public Label orderNumL;//Changed for testing private-public
+    public Label orderNumLT;//Changed for testing private-public
     Label reputationLabelT;
     Label reputationLabel;
 
