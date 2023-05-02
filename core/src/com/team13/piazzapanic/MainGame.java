@@ -36,9 +36,9 @@ public class MainGame extends Game {
 	public boolean isPlayScreen;
 	public boolean isStartScreen;
 
-	private PauseScreen pauseScreen;
+	public PauseScreen pauseScreen;//testing change
 	public static StartScreen startScreen;
-	private PlayScreen playScreen;
+	public PlayScreen playScreen;//testing change
 
 	public static int difficulty = 1;
 
