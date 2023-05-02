@@ -1,6 +1,6 @@
 package Recipe;
 
-import Ingredients.*;
+import ingredients.*;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package Sprites;
 
-import Ingredients.Ingredient;
-import Ingredients.Steak;
+import ingredients.Ingredient;
+import ingredients.Steak;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;

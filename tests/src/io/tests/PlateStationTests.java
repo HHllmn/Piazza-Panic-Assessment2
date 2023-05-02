@@ -1,16 +1,12 @@
 package io.tests;
 
-import Ingredients.*;
-import Ingredients.Ingredient;
+import ingredients.Ingredient;
 import Sprites.PlateStation;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.team13.piazzapanic.MainGame;
 import com.team13.piazzapanic.PlayScreen;
 import org.junit.Assert;
 import org.junit.Test;

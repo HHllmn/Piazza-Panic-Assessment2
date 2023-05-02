@@ -1,7 +1,7 @@
 package Sprites;
 
-import Ingredients.Lettuce;
-import Ingredients.Ingredient;
+import ingredients.Lettuce;
+import ingredients.Ingredient;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;

@@ -1,6 +1,6 @@
 package Sprites;
 
-import Ingredients.*;
+import ingredients.*;
 import Recipe.BurgerRecipe;
 import Recipe.JacketPotatoRecipe;
 import Recipe.Recipe;
