@@ -85,7 +85,6 @@ public class Order extends Sprite {
             sprite.draw(batch);
         }
 
-
     }
 
     private void addTime(){
@@ -96,4 +95,5 @@ public class Order extends Sprite {
         timeLabel = new Label(String.format(String.valueOf(PlayScreen.timeSeconds - this.timeMade)), new Label.LabelStyle(font, Color.WHITE));
         //timeLabel.draw(batch,1);
     }
+
 }

@@ -47,7 +47,7 @@ public class HUD implements Disposable {
         this.scenarioComplete = Boolean.FALSE;
         worldTimerM = 0;
         worldTimerS = 0;
-        money = 0;
+        money = 100;
         reputationPoints = 100;
         timeStr = String.format("%d", worldTimerM) + " : " + String.format("%d", worldTimerS);
         float fontX = 0.5F;
@@ -170,6 +170,19 @@ public class HUD implements Disposable {
         moneyLabel.setText(String.format("%d", money));
         stage.addActor(table);
 
+    }
+
+    public boolean purchaseUnlock() {
+        int upgradeCost = 50;
+        if (money - upgradeCost >= 0) {
+            money -= upgradeCost;
+            table.left().top();
+            moneyLabel.setText(String.format("%d", money));
+            stage.addActor(table);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

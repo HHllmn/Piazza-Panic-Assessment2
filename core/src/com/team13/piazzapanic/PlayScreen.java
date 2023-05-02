@@ -14,7 +14,6 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -23,7 +22,10 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -65,12 +67,17 @@ public class PlayScreen implements Screen {
     private Integer money;
 
     public ArrayList<Order> ordersArray;
+    public Map<Integer, Unlockable> unlockablesArray;
+    private Map<Integer, Point> unlockablePositions;
+    private int totalUnlocks;
 
     public PlateStation plateStation;
 
 
     public Boolean scenarioComplete;
     public Boolean createdOrder;
+    public Boolean unlocksGenerated;
+    private Boolean unlockNewRecipes;
 
     public static float trayX;
     public static float trayY;
@@ -97,11 +104,14 @@ public class PlayScreen implements Screen {
         money = 0;
         scenarioComplete = Boolean.FALSE;
         createdOrder = Boolean.FALSE;
+        unlocksGenerated = Boolean.FALSE;
+        unlockNewRecipes = Boolean.FALSE;
         gamecam = new OrthographicCamera();
         // FitViewport to maintain aspect ratio whilst scaling to screen size
         gameport = new FitViewport(MainGame.V_WIDTH / MainGame.PPM, MainGame.V_HEIGHT / MainGame.PPM, gamecam);
         // create HUD for score & time
         hud = new HUD(game.batch);
+        Point position;
         // create orders hud
         Orders orders = new Orders(game.batch);
         // create map
@@ -110,8 +120,11 @@ public class PlayScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, 1 / MainGame.PPM);
         gamecam.position.set(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2, 0);
 
+        unlockablesArray = new HashMap<Integer, Unlockable>();
+
         world = new World(new Vector2(0, 0), true);
-        new B2WorldCreator(world, map, this);
+        B2WorldCreator B2World = new B2WorldCreator(world, map, this);
+        unlockablePositions = B2World.getUnlockablePositions();
 
         chef1 = new Chef(this.world, 31.5F, 65);
         chef2 = new Chef(this.world, 128, 65);
@@ -121,7 +134,7 @@ public class PlayScreen implements Screen {
         controlledChef.notificationSetBounds("Down");
 
         ordersArray = new ArrayList<>();
-
+        unlockablesArray = new HashMap<Integer, Unlockable>();
 
     }
 
@@ -261,6 +274,17 @@ public class PlayScreen implements Screen {
                             if (plateStation.getPlate().size() > 0 || plateStation.getCompletedRecipe() != null) {
                                 controlledChef.pickUpItemFrom(tile);
                             }
+                            break;
+                        case "Sprites.Oven":
+                            Oven oventile = (Oven) tile;
+                            if (!oventile.getIsPurchased()) {
+                                if(hud.purchaseUnlock()) {
+                                    unlockablePositions.remove(oventile.getOvenId());
+                                    unlockablesArray.remove(oventile.getOvenId());
+                                    oventile.setPurchased();
+                                    unlockNewRecipes = !unlockNewRecipes;
+                                }
+                            }
                     }
                 } else {
                     switch (tileName) {
@@ -285,10 +309,8 @@ public class PlayScreen implements Screen {
                             break;
                         case "Sprites.Pan":
                             if (controlledChef.getInHandsIng() != null) {
-                                if ((controlledChef.getInHandsIng().getClass().toString().equals((new Bun()).getClass().toString())) || (controlledChef.getInHandsIng().getClass().toString().equals((new Steak()).getClass().toString()))) {
-                                    if (controlledChef.getInHandsIng().isPrepared() && controlledChef.getInHandsIng().cookTime > 0) {
-                                        controlledChef.setUserControlChef(false);
-                                    }
+                                if (controlledChef.getInHandsIng().cookTime > 0) {
+                                    controlledChef.setUserControlChef(false);
                                 }
                             }
                             break;
@@ -300,8 +322,6 @@ public class PlayScreen implements Screen {
                                         controlledChef.setUserControlChef(false);
                                     }
                                 }
-                            } else { //this is where texture would change from PurchaseOven to Oven
-                                oventile.setPurchased();
                             }
 
                             break;
@@ -311,7 +331,7 @@ public class PlayScreen implements Screen {
                                     controlledChef.dropItemOn(tile);
                                     ordersArray.get(0).orderComplete = true;
                                     controlledChef.setChefSkin(null);
-                                    if (ordersArray.size() == 1) {
+                                    if (ordersArray.size() == 1 && MainGame.GameMode == MainGame.Mode.SITUATION) {
                                         scenarioComplete = Boolean.TRUE;
                                     }
                                 }
@@ -347,7 +367,9 @@ public class PlayScreen implements Screen {
      * Creates the orders randomly and adds to an array, updates the HUD.
      */
     public void createOrder() { //add new boolean that determines if its the endless or 5 order scenario
-        int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+        int randomNumberBound = 2;
+        if(unlockNewRecipes) randomNumberBound = 4;
+        int randomNum = ThreadLocalRandom.current().nextInt(1, randomNumberBound + 1);
         Texture burger_recipe = new Texture("Food/burger_recipe.png");
         Texture salad_recipe = new Texture("Food/salad_recipe.png");
         Texture jacket_potato_recipe = new Texture("Food/jacket_potato_recipe.png");
@@ -367,9 +389,9 @@ public class PlayScreen implements Screen {
             else {
                 order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
             }
-            order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
+            order = new Order(PlateStation.saladRecipe, salad_recipe);
             ordersArray.add(order);
-            randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+            randomNum = ThreadLocalRandom.current().nextInt(1, randomNumberBound + 1);
         }
         hud.updateOrder(Boolean.FALSE, 1);
         timeSecondsCount = 0;
@@ -423,6 +445,35 @@ public class PlayScreen implements Screen {
         }
     }
 
+    public void createLockedItem() { //THIS IS WORKING!! NOW JUST MAKE IT PROGRAMMATIC!!!
+        Texture money = new Texture("Money.png");
+        Unlockable unlockable;
+        for (int i = 0; i < unlockablePositions.size(); i++) {
+            unlockable = new Unlockable(money, i, unlockablePositions.get(i).x, unlockablePositions.get(i).y);
+            unlockablesArray.put(i, unlockable);
+        }
+    }
+
+    public void updatePurchases() {
+        totalUnlocks = 3;
+        for (int i = 0; i < totalUnlocks; i++) {
+            if (unlockablesArray.containsKey(i)) {
+                unlockablesArray.get(i).create(unlockablesArray.get(i).x * 16, unlockablesArray.get(i).y * 16, game.batch);
+            }
+        }
+        //unlockablesArray.get(0).create(80, 112, game.batch);
+        //unlockablesArray.get(1).create(96, 112, game.batch);
+        //unlockablesArray.get(2).create(112, 112, game.batch);
+
+        //if (unlockablesArray.size() != 0) {
+        //    for (Unlockable unlock : unlockablesArray) {
+        //        unlock.create(trayX, trayY, game.batch, unlockablesArray.indexOf(unlock));
+        //    }
+        //    //ordersArray.get(i).create(trayX, trayY, game.batch);
+        //    //ordersArray.get(i).create(trayX, trayY, game.batch, i);
+        //}
+    }
+
     /**
 
      The render method updates the screen by calling the update method with the given delta time, and rendering the graphics of the game.
@@ -453,6 +504,11 @@ public class PlayScreen implements Screen {
             if (!createdOrder) createdOrder = Boolean.TRUE;
         }
 
+        if(!unlocksGenerated) {
+            createLockedItem();
+            unlocksGenerated = !unlocksGenerated;
+        }
+
         float period = 1f;
         if (timeSeconds > period) {
             timeSeconds -= period;
@@ -466,7 +522,10 @@ public class PlayScreen implements Screen {
         hud.stage.draw();
         game.batch.setProjectionMatrix(gamecam.combined);
         game.batch.begin();
+
         updateOrder();
+        updatePurchases();
+
         chef1.draw(game.batch);
         chef2.draw(game.batch);
         chef3.draw(game.batch);

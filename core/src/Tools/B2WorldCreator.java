@@ -11,6 +11,11 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.team13.piazzapanic.MainGame;
 import com.team13.piazzapanic.PlayScreen;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * B2WorldCreator is a class used to create Box2D World objects from a TiledMap.
  * This class uses the map objects to create various objects like worktop, plates,
@@ -24,10 +29,17 @@ import com.team13.piazzapanic.PlayScreen;
  */
 public class B2WorldCreator {
 
-/**
+    private int unlockableCount;
+    public Map<Integer, Point> unlockablePositions;
+
+    public Map<Integer, Point> getUnlockablePositions() {
+        return unlockablePositions;
+    }
+
+    /**
  * Constructor method for B2WorldCreator. It accepts a World, TiledMap and PlayScreen
  * objects. The method then iterates over the cells in the first layer of the TiledMap and
- * uses the map objects to create various objects like worktop, plates, chopperboard,
+ * uses the map objects to create various objects like worktop, plates, chopping board,
  * bin, etc. based on the name assigned to the objects in the TiledMap.
  *
  * The objects are created as BodyDef objects and are passed to different sprite classes,
@@ -38,6 +50,8 @@ public class B2WorldCreator {
  * */
 
     public B2WorldCreator(World world, TiledMap map, PlayScreen screen) {
+        unlockableCount = 0;
+        unlockablePositions = new HashMap<Integer, Point>();
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
@@ -91,7 +105,9 @@ public class B2WorldCreator {
                 } else if (mapObject.getName().equals("pan2")) {
                     new Pan(world, map, bdef, rectangle);
                 } else if (mapObject.getName().equals("oven")) {
-                    new Oven(world, map, bdef, rectangle);
+                    new Oven(world, map, bdef, rectangle, unlockableCount);
+                    unlockablePositions.put(unlockableCount, new Point(x, y));
+                    unlockableCount++;
                 } else if (mapObject.getName().equals("completed_dish")) {
                     new CompletedDishStation(world, map, bdef, rectangle);
                 } else if (mapObject.getName().equals("order_top")) {

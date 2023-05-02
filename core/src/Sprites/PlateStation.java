@@ -135,6 +135,7 @@ public class PlateStation extends InteractiveTileObject {
             if (jacketPotatoSame) {
                 plate.clear();
                 recipeDone = jacketPotatoRecipe;
+                jacketPotatoRecipe = new JacketPotatoRecipe();
             }
         }
         if (plate.size() == pizzaRecipe.getIngredients().size()) {
@@ -156,6 +157,7 @@ public class PlateStation extends InteractiveTileObject {
             if (pizzaSame) {
                 plate.clear();
                 recipeDone = pizzaRecipe;
+                pizzaRecipe = new PizzaRecipe();
             }
         }
     }

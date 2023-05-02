@@ -1,8 +1,5 @@
 package Sprites;
 
-import Ingredients.Ingredient;
-import Ingredients.Potato;
-import Recipe.Recipe;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -17,14 +14,24 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Oven extends InteractiveTileObject {
 
 
-    /** Boolean that states if the oven has been purchased */
+    /**
+     *  Integer that states the ID of the oven.
+     */
+    private int unlockableId;
 
+    /**
+     * Boolean that states if the oven has been purchased
+     * */
     private boolean isPurchased;
-    public Oven(World world, TiledMap map, BodyDef bdef, Rectangle rectangle) {
+
+    public Oven(World world, TiledMap map, BodyDef bdef, Rectangle rectangle, int id) {
         super(world, map, bdef, rectangle);
+        unlockableId = id;
         isPurchased = false;
         fixture.setUserData(this);
     }
+
+    public int getOvenId() { return (unlockableId); }
 
     /**
      * Returns the boolean isPurchased.

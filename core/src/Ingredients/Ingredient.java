@@ -65,7 +65,7 @@ public abstract class Ingredient extends Sprite {
      *
      */
     public void setCooked() {
-        amICooked= true;
+        amICooked = true;
     }
 
     /**

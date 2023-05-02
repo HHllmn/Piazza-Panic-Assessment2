@@ -224,15 +224,16 @@ public class Chef extends Sprite {
                     setChefSkin(inHandsIng);
                 }
             }
-        } else if (!userControlChef && !chefOnChefCollision && getInHandsIng() != null) {
-            if (getInHandsIng().isPrepared() && inHandsIng.cookTime > 0) {
-                waitTimer += dt;
-                if (waitTimer > inHandsIng.cookTime) {
-                    inHandsIng.cookTime = 0;
-                    inHandsIng.setCooked();
-                    userControlChef = true;
-                    waitTimer = 0;
-                    setChefSkin(inHandsIng);
+            else if (!chefOnChefCollision) {
+                if (getInHandsIng().isPrepared() && inHandsIng.cookTime > 0) {
+                    waitTimer += dt;
+                    if (waitTimer > inHandsIng.cookTime) {
+                        inHandsIng.cookTime = 0;
+                        inHandsIng.setCooked();
+                        userControlChef = true;
+                        waitTimer = 0;
+                        setChefSkin(inHandsIng);
+                    }
                 }
             }
         } else if (!userControlChef && !chefOnChefCollision && getInHandsRecipe() != null) {

@@ -31,7 +31,7 @@ public class PotatoStation extends InteractiveTileObject {
      * @return a Potato object
      */
     public Ingredient getIngredient(){
-        return (new Potato(2,2));
+        return (new Potato(2,0));
     }
 }
 
