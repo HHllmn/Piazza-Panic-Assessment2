@@ -1,6 +1,6 @@
 package Sprites;
 
-import Ingredients.*;
+import ingredients.*;
 import Recipe.*;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;

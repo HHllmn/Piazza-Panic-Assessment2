@@ -1,10 +1,10 @@
-package Ingredients;
+package ingredients;
 
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
-public class Tomato extends Ingredient{
+public class Potato extends Ingredient{
 
     /**
      * The Tomato class represents a specific type of ingredient in the game, specifically tomatoes.
@@ -12,11 +12,12 @@ public class Tomato extends Ingredient{
      * The Tomato class sets up an ArrayList of textures for its different skins.
      */
 
-    public Tomato(float prepareTime, float cookTime) {
+    public Potato(float prepareTime, float cookTime) {
         super(prepareTime, cookTime);
         super.tex = new ArrayList<>();
-        tex.add(new Texture("Food/Tomato.png"));
-        tex.add(new Texture("Food/Chopped_tomato.png"));
+        super.tex.add(new Texture("Food/Potato.png"));
+        super.tex.add(new Texture("Food/Cut_potato.png"));
+        super.tex.add(new Texture("Food/Baked_potato.png"));
 
     }
 }
