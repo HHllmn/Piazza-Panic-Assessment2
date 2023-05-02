@@ -31,7 +31,7 @@ public class Order extends Sprite {
     Texture timerTex;
     Texture borderTexG, borderTexO, borderTexR;
     Rectangle rect;
-    public static int orderTimeout = 30;
+    public static int orderTimeout = 40;
     float timeSince;
     Sprite timerSprite;
 
@@ -53,6 +53,7 @@ public class Order extends Sprite {
         this.borderTexR = new Texture("borderTexR.png");
         this.timerTex = borderTexG;
         this.timeSince = 0;
+        orderTimeout = orderTimeout - 12*(MainGame.difficulty -1);
     }
 
     /**

@@ -83,7 +83,7 @@ public class PlayScreen implements Screen {
 
     private float lastEndlessTime = -1;
 
-    private float orderDelay = 10;
+    private float orderDelay = 25;
     private boolean gameStarted = false;
 
 
@@ -126,7 +126,7 @@ public class PlayScreen implements Screen {
 
         ordersArray = new ArrayList<>();
 
-
+        orderDelay = orderDelay - 5*(MainGame.difficulty-1);
     }
 
     @Override

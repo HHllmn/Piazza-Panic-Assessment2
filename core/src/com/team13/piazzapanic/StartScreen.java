@@ -28,7 +28,9 @@ public class StartScreen implements Screen {
     public StartScreen(MainGame game) {
         this.game = game;
         if (MainGame.GameMode == MainGame.Mode.SITUATION)backgroundImage = new Texture("situationImage.png");
-        else if (MainGame.GameMode == MainGame.Mode.ENDLESS)backgroundImage = new Texture("endlessImage.png");
+        else if (MainGame.GameMode == MainGame.Mode.ENDLESS && MainGame.difficulty == 1)backgroundImage = new Texture("endlessImage1.png");
+        else if (MainGame.GameMode == MainGame.Mode.ENDLESS && MainGame.difficulty == 2)backgroundImage = new Texture("endlessImage2.png");
+        else if (MainGame.GameMode == MainGame.Mode.ENDLESS && MainGame.difficulty == 3)backgroundImage = new Texture("endlessImage3.png");
         backgroundSprite = new Sprite(backgroundImage);
         camera = new OrthographicCamera();
         viewport = new FitViewport(MainGame.V_WIDTH, MainGame.V_HEIGHT, camera);
@@ -41,7 +43,9 @@ public class StartScreen implements Screen {
     @Override
     public void show() {
         if (MainGame.GameMode == MainGame.Mode.SITUATION)backgroundImage = new Texture("situationImage.png");
-        else if (MainGame.GameMode == MainGame.Mode.ENDLESS)backgroundImage = new Texture("endlessImage.png");
+        else if (MainGame.GameMode == MainGame.Mode.ENDLESS && MainGame.difficulty == 1)backgroundImage = new Texture("endlessImage1.png");
+        else if (MainGame.GameMode == MainGame.Mode.ENDLESS && MainGame.difficulty == 2)backgroundImage = new Texture("endlessImage2.png");
+        else if (MainGame.GameMode == MainGame.Mode.ENDLESS && MainGame.difficulty == 3)backgroundImage = new Texture("endlessImage3.png");
         backgroundSprite = new Sprite(backgroundImage);
         backgroundSprite.setSize(MainGame.V_WIDTH, MainGame.V_HEIGHT);
         backgroundSprite.setPosition(0, 0);

@@ -40,6 +40,8 @@ public class MainGame extends Game {
 	public static StartScreen startScreen;
 	private PlayScreen playScreen;
 
+	public static int difficulty = 1;
+
 	public enum Mode{
 		SITUATION,
 		ENDLESS
@@ -67,6 +69,14 @@ public class MainGame extends Game {
 			else if (GameMode == Mode.ENDLESS) GameMode = Mode.SITUATION;
 			PlayScreen.hud = new HUD(batch);
 		}
+		if (Gdx.input.isKeyJustPressed((Input.Keys.LEFT)) && isStartScreen && GameMode == Mode.ENDLESS){
+			difficulty -=1;
+		}
+		if (Gdx.input.isKeyJustPressed((Input.Keys.RIGHT)) && isStartScreen && GameMode == Mode.ENDLESS){
+			difficulty +=1;
+		}
+		if (difficulty == 0) difficulty = 3;
+		if (difficulty == 4) difficulty = 1;
 		if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)){
 			if (isStartScreen == true) {
 				isStartScreen = false;
