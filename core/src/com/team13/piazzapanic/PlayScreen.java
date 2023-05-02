@@ -70,6 +70,7 @@ public class PlayScreen implements Screen {
     public Map<Integer, Unlockable> unlockablesArray;
     private Map<Integer, Point> unlockablePositions;
     private int totalUnlocks;
+    private int totalOrdersDelivered;
 
     public PlateStation plateStation;
 
@@ -106,6 +107,7 @@ public class PlayScreen implements Screen {
         createdOrder = Boolean.FALSE;
         unlocksGenerated = Boolean.FALSE;
         unlockNewRecipes = Boolean.FALSE;
+        totalOrdersDelivered = 0;
         gamecam = new OrthographicCamera();
         // FitViewport to maintain aspect ratio whilst scaling to screen size
         gameport = new FitViewport(MainGame.V_WIDTH / MainGame.PPM, MainGame.V_HEIGHT / MainGame.PPM, gamecam);
@@ -331,7 +333,8 @@ public class PlayScreen implements Screen {
                                     controlledChef.dropItemOn(tile);
                                     ordersArray.get(0).orderComplete = true;
                                     controlledChef.setChefSkin(null);
-                                    if (ordersArray.size() == 1 && MainGame.GameMode == MainGame.Mode.SITUATION) {
+                                    totalOrdersDelivered++;
+                                    if (totalOrdersDelivered >= 5 && MainGame.GameMode == MainGame.Mode.SITUATION) {
                                         scenarioComplete = Boolean.TRUE;
                                     }
                                 }
@@ -376,23 +379,20 @@ public class PlayScreen implements Screen {
         Texture pizza_recipe = new Texture("Food/pizza_recipe.png");
         Order order;
 
-        for(int i = 0; i<5; i++){
-            if(randomNum==1) {
-                order = new Order(PlateStation.burgerRecipe, burger_recipe);
-            }
-            else if(randomNum==2) {
-                order = new Order(PlateStation.saladRecipe, salad_recipe);
-            }
-            else if(randomNum==3) {
-                order = new Order(PlateStation.jacketPotatoRecipe, jacket_potato_recipe);
-            }
-            else {
-                order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
-            }
-            order = new Order(PlateStation.saladRecipe, salad_recipe);
-            ordersArray.add(order);
-            randomNum = ThreadLocalRandom.current().nextInt(1, randomNumberBound + 1);
+        if(randomNum==1) {
+            order = new Order(PlateStation.burgerRecipe, burger_recipe);
         }
+        else if(randomNum==2) {
+            order = new Order(PlateStation.saladRecipe, salad_recipe);
+        }
+        else if(randomNum==3) {
+            order = new Order(PlateStation.jacketPotatoRecipe, jacket_potato_recipe);
+        }
+        else {
+            order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
+        }
+        order = new Order(PlateStation.saladRecipe, salad_recipe);
+        ordersArray.add(order);
         hud.updateOrder(Boolean.FALSE, 1);
         timeSecondsCount = 0;
     }
@@ -420,15 +420,18 @@ public class PlayScreen implements Screen {
      */
     public void updateOrder() {
         if (scenarioComplete == Boolean.TRUE) {
-            hud.updateScore(Boolean.TRUE, (6 - ordersArray.size()) * 35);
+            hud.updateScore(Boolean.TRUE, (totalOrdersDelivered) * 35);
             hud.updateOrder(Boolean.TRUE, 0);
             return;
         }
-        if (ordersArray.size() != 0) {
+        if (ordersArray.size() != 0) { //ordersArray != null
             if (ordersArray.get(0).orderComplete) {
                 hud.updateScore(Boolean.FALSE, (6 - ordersArray.size()) * 35);
                 ordersArray.remove(0);
-                hud.updateOrder(Boolean.FALSE, 6 - ordersArray.size());
+                hud.updateOrder(Boolean.FALSE, totalOrdersDelivered);
+                if(MainGame.GameMode == MainGame.Mode.SITUATION) {
+                    createdOrder = Boolean.FALSE; //this is obsolete
+                }
                 return;
             }
 
@@ -489,10 +492,10 @@ public class PlayScreen implements Screen {
         update(delta);
 
         //Execute handleEvent each 1 second
-        timeSeconds +=Gdx.graphics.getRawDeltaTime();
+        timeSeconds += Gdx.graphics.getRawDeltaTime();
         timeSecondsCount += Gdx.graphics.getDeltaTime();
         if (MainGame.GameMode == MainGame.Mode.SITUATION ) {
-            if (Math.round(timeSecondsCount) == 5 && createdOrder == Boolean.FALSE) {
+            if (Math.round(timeSecondsCount) % 5 == 0 && totalOrdersDelivered < 5 && !createdOrder) {
                 createdOrder = Boolean.TRUE;
                 createOrder();
             }

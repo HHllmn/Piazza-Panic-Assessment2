@@ -43,7 +43,7 @@ public class Unlockable extends Sprite {
      */
     public void create(float x, float y, SpriteBatch batch) {
         Sprite sprite = new Sprite(unlockableImg);
-        float adjustedX = x  / MainGame.PPM;
+        float adjustedX = x / MainGame.PPM;
         float adjustedY = y / MainGame.PPM;
         sprite.setBounds(adjustedX, adjustedY, 16 / MainGame.PPM, 16 / MainGame.PPM);
         sprite.draw(batch);

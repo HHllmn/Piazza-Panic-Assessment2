@@ -30,10 +30,15 @@ import java.util.Map;
 public class B2WorldCreator {
 
     private int unlockableCount;
-    public Map<Integer, Point> unlockablePositions;
+    private Map<Integer, Point> unlockablePositions;
+    private ArrayList<Point> powerupGrid;
 
     public Map<Integer, Point> getUnlockablePositions() {
         return unlockablePositions;
+    }
+
+    public ArrayList<Point> getPowerupGrid() {
+        return powerupGrid;
     }
 
     /**
@@ -51,7 +56,8 @@ public class B2WorldCreator {
 
     public B2WorldCreator(World world, TiledMap map, PlayScreen screen) {
         unlockableCount = 0;
-        unlockablePositions = new HashMap<Integer, Point>();
+        unlockablePositions = new HashMap<>();
+        powerupGrid = new ArrayList<>();
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
@@ -113,9 +119,12 @@ public class B2WorldCreator {
                 } else if (mapObject.getName().equals("order_top")) {
                     PlayScreen.trayX = rectangle.x;
                     PlayScreen.trayY = rectangle.y;
+                } else {
+                    powerupGrid.add(new Point(x, y));
                 }
 
             }
         }
+        powerupGrid.size();
     }
 }
