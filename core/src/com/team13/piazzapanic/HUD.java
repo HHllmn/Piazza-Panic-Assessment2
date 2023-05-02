@@ -65,7 +65,7 @@ public class HUD implements Disposable {
         timeLabel = new Label(String.format("%d", worldTimerM, ":", "%i", worldTimerS), new Label.LabelStyle(font, Color.WHITE));
         timeLabelT = new Label("TIME", new Label.LabelStyle(font, Color.BLACK));
         orderNumLT = new Label("ORDER", new Label.LabelStyle(font, Color.BLACK));
-        orderNumL = new Label(String.format("%d", 0), new Label.LabelStyle(font, Color.WHITE));
+        orderNumL = new Label(String.format("%d", 1), new Label.LabelStyle(font, Color.WHITE));
 
         moneyLabel = new Label(String.format("%d", money), new Label.LabelStyle(font, Color.WHITE));
         moneyLabelLT = new Label("MONEY", new Label.LabelStyle(font, Color.BLACK));
@@ -195,20 +195,20 @@ public class HUD implements Disposable {
     // Scenario isn't the only way to play, there is an endless mode to be implemented as well.
     // In this case scenario should be set to false always in endless mode for versions of this call to work. -Jonathon
         public void updateOrder(Boolean scenarioComplete, Integer orderNum){
-        if(scenarioComplete==Boolean.TRUE){
-            orderNumL.remove();
-            orderNumLT.remove();
-            table.center().top();
+            if(scenarioComplete==Boolean.TRUE){
+                orderNumL.remove();
+                orderNumLT.remove();
+                table.center().top();
+                stage.addActor(table);
+                return;
+            }
+
+            table.left().top();
+            orderNumL.setText(String.format("%d", orderNum));
+            orderNumLT.setText("ORDER");
             stage.addActor(table);
-            return;
+
         }
-
-        table.left().top();
-        orderNumL.setText(String.format("%d", orderNum));
-        orderNumLT.setText("ORDER");
-        stage.addActor(table);
-
-    }
 
     // needs to fail the game if the reputation hits 0.
     public void updateReputation(Integer reputationNum){

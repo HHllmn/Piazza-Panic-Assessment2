@@ -295,7 +295,6 @@ public class PlayScreen implements Screen {
                             controlledChef.setInHandsIng(null);
                             controlledChef.setChefSkin(null);
                             break;
-
                         case "Sprites.ChoppingBoard":
                             if (controlledChef.getInHandsIng() != null) {
                                 if (controlledChef.getInHandsIng().prepareTime > 0) {
@@ -393,7 +392,7 @@ public class PlayScreen implements Screen {
         }
         order = new Order(PlateStation.saladRecipe, salad_recipe);
         ordersArray.add(order);
-        hud.updateOrder(Boolean.FALSE, 1);
+        //hud.updateOrder(Boolean.FALSE, 1);
         timeSecondsCount = 0;
     }
 
@@ -411,7 +410,7 @@ public class PlayScreen implements Screen {
         }
         ordersArray.add(order);
         randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-        hud.updateOrder(Boolean.FALSE,1);
+        //hud.updateOrder(Boolean.FALSE,totalOrdersDelivered);
         timeSecondsCount =0;
     }
 
@@ -420,7 +419,7 @@ public class PlayScreen implements Screen {
      */
     public void updateOrder() {
         if (scenarioComplete == Boolean.TRUE) {
-            hud.updateScore(Boolean.TRUE, (totalOrdersDelivered) * 35);
+            hud.updateScore(Boolean.TRUE, (totalOrdersDelivered + 1) * 35);
             hud.updateOrder(Boolean.TRUE, 0);
             return;
         }
@@ -428,7 +427,7 @@ public class PlayScreen implements Screen {
             if (ordersArray.get(0).orderComplete) {
                 hud.updateScore(Boolean.FALSE, (6 - ordersArray.size()) * 35);
                 ordersArray.remove(0);
-                hud.updateOrder(Boolean.FALSE, totalOrdersDelivered);
+                hud.updateOrder(Boolean.FALSE, totalOrdersDelivered + 1);
                 if(MainGame.GameMode == MainGame.Mode.SITUATION) {
                     createdOrder = Boolean.FALSE; //this is obsolete
                 }
