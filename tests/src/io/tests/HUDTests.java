@@ -54,9 +54,56 @@ public class HUDTests {
         Assert.assertTrue(hud2.scenarioComplete);
     }
     @Test
-    public void LessThanZeroRepTest(){
+    public void purchaseUnlockTest(){
         SpriteBatch batch = mock(SpriteBatch.class);
         HUD hud = new HUD(batch);
-        hud.updateReputation(0);
+        hud.money = 0;
+        boolean result1 = hud.purchaseUnlock();
+        Assert.assertFalse(result1);
+        Assert.assertTrue(hud.money == 0);
+
+        hud.money = 100;
+        boolean result2 = hud.purchaseUnlock();
+        Assert.assertTrue(result2);
+        Assert.assertTrue(hud.money == 50);
+    }
+    @Test
+    public void updateReputationTest(){
+        SpriteBatch batch = mock(SpriteBatch.class);
+        HUD hud = new HUD(batch);
+        hud.reputationLabel = mock(Label.class);
+        hud.reputationLabelT = mock(Label.class);
+
+        Integer reputationNum1 = 0;
+        hud.updateReputation(reputationNum1);
+        Assert.assertNull(hud.reputationLabel.getParent());
+        Assert.assertNull(hud.reputationLabelT.getParent());
+        Assert.assertNotNull(hud.table.getParent());
+
+        Integer reputationNum2 = 100;
+        hud.updateReputation(reputationNum2);
+        Assert.assertNull(hud.reputationLabel.getParent());
+        Assert.assertNull(hud.reputationLabelT.getParent());
+        Assert.assertNotNull(hud.table.getParent());
+    }
+    @Test
+    public void updateTimeTest(){
+        SpriteBatch batch = mock(SpriteBatch.class);
+        HUD hud = new HUD(batch);
+        hud.reputationLabel = mock(Label.class);
+        hud.reputationLabelT = mock(Label.class);
+        PlayScreen.endlessOver = true;
+        hud.updateTime(false);
+
+        Assert.assertEquals(Color.BLACK, hud.timeLabel.getColor());
+        Assert.assertEquals(Color.RED, hud.timeLabelT.getColor());
+        Assert.assertEquals("TIME: 0:0 MONEY: 0", hud.timeLabel.getText().toString());
+        Assert.assertEquals("GAME OVER", hud.timeLabelT.getText().toString());
+
+        Assert.assertNull(hud.moneyLabel.getParent());
+        Assert.assertNull(hud.moneyLabelLT.getParent());
+        Assert.assertNull(hud.orderNumL.getParent());
+        Assert.assertNull(hud.reputationLabel.getParent());
+        Assert.assertNull(hud.reputationLabelT.getParent());
     }
 }

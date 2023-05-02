@@ -29,7 +29,6 @@ public class MainGameTests {
         game.render();
         Assert.assertTrue(game.GameMode == MainGame.Mode.SITUATION);
 
-
     }
     @Test
     public void MainGameRenderStartTests(){
@@ -48,5 +47,21 @@ public class MainGameTests {
         game.render();
         Assert.assertTrue(game.isStartScreen);
     }
-
+    @Test
+    public void ChangeDifficultyTest(){
+        MainGame game = new MainGame();
+        SpriteBatch batch = mock(SpriteBatch.class);
+        game.batch = batch;
+        Gdx.input = mock(Input.class);
+        when(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)).thenReturn(true);
+        MainGame.difficulty = 2;
+        game.isStartScreen = true;
+        MainGame.GameMode = MainGame.Mode.ENDLESS;
+        game.render();
+        Assert.assertTrue(MainGame.difficulty == 1);
+        when(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)).thenReturn(false);
+        when(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)).thenReturn(true);
+        game.render();
+        Assert.assertTrue(MainGame.difficulty == 2);
+    }
 }

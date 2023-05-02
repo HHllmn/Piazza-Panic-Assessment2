@@ -32,8 +32,8 @@ public class HUD implements Disposable {
 
     public Table table;
 
-    Label timeLabelT;
-    Label timeLabel;
+    public Label timeLabelT;
+    public Label timeLabel;
 
     Label scoreLabel;
     Label scoreLabelT;
@@ -41,8 +41,8 @@ public class HUD implements Disposable {
     public Label moneyLabelLT;//Changed for testing private-public
     public Label orderNumL;//Changed for testing private-public
     public Label orderNumLT;//Changed for testing private-public
-    Label reputationLabelT;
-    Label reputationLabel;
+    public Label reputationLabelT;
+    public Label reputationLabel;
 
     public HUD(SpriteBatch sb){
         this.scenarioComplete = Boolean.FALSE;
