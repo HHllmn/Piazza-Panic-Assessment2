@@ -16,12 +16,12 @@ import jdk.jfr.internal.tool.Main;
 
 public class HUD implements Disposable {
     public Stage stage;
-    private Boolean scenarioComplete;
+    public Boolean scenarioComplete; //Changed from private to public for testing
 
-    private Integer worldTimerM;
-    private Integer worldTimerS;
+    public Integer worldTimerM;//Changed from private to public for testing
+    public Integer worldTimerS;//Changed from private to public for testing
 
-    private Integer money;
+    public Integer money;//Changed from private to public for testing
 
     //public static boolean getMoney(){
     //    return (money);
@@ -32,16 +32,17 @@ public class HUD implements Disposable {
 
     public Table table;
 
-    Label timeLabelT;
-    Label timeLabel;
+    public Label timeLabelT;
+    public Label timeLabel;
+
     Label scoreLabel;
     Label scoreLabelT;
-    Label moneyLabel;
-    Label moneyLabelLT;
-    Label orderNumL;
-    Label orderNumLT;
-    Label reputationLabelT;
-    Label reputationLabel;
+    public Label moneyLabel;//Changed for testing private-public
+    public Label moneyLabelLT;//Changed for testing private-public
+    public Label orderNumL;//Changed for testing private-public
+    public Label orderNumLT;//Changed for testing private-public
+    public Label reputationLabelT;
+    public Label reputationLabel;
 
     public HUD(SpriteBatch sb){
         this.scenarioComplete = Boolean.FALSE;
