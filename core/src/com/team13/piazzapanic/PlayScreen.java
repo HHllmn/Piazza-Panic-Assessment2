@@ -469,7 +469,6 @@ public class PlayScreen implements Screen {
             else{
                 for (int i = 0; i < ordersArray.size(); i++) {
                     ordersArray.get(i).create(trayX, trayY, game.batch, i);
-                    if
                 }
             }
         }
