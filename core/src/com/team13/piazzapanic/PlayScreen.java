@@ -276,7 +276,7 @@ public class PlayScreen implements Screen {
                             powerupHashMap.remove(powerupTile.getPowerupSpawnId());
                             powerupGenerated = false;
                         } else if (powerupHashMap.get(powerupTile.getPowerupSpawnId()).getPowerUpType() == Powerup.PowerUpType.PATIENCE) {
-                            for (Order o:ordersArray) {
+                            for (Order o : ordersArray) {
                                 o.timeMade = timeSecondsTotal;
                             }
                             powerupHashMap.remove(powerupTile.getPowerupSpawnId());
@@ -619,8 +619,10 @@ public class PlayScreen implements Screen {
         }
 
         if(!powerupGenerated) {
-            createPowerup();
-            powerupGenerated = !powerupGenerated;
+            if (Math.round(timeSecondsCount) % 20 == 0 || Math.round(timeSecondsCount) == 0) {
+                createPowerup();
+                powerupGenerated = !powerupGenerated;
+            }
         }
 
         float period = 1f;

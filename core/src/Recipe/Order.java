@@ -27,7 +27,7 @@ public class Order extends Sprite {
      * The image representing this order.
      */
     public Texture orderImg;
-    public final float timeMade;
+    public float timeMade;
     Texture timerTex;
     Texture borderTexG, borderTexO, borderTexR;
     Rectangle rect;
