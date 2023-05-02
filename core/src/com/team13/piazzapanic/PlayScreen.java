@@ -67,9 +67,12 @@ public class PlayScreen implements Screen {
     private Integer money;
 
     public ArrayList<Order> ordersArray;
-    public Map<Integer, Unlockable> unlockablesArray;
+    public Map<Integer, Unlockable> unlockablesHashMap;
     private Map<Integer, Point> unlockablePositions;
+    public Map<Integer, Powerup> powerupHashMap;
+    private Map<Integer, Point> powerupPositions;
     private int totalUnlocks;
+    private int maximumPowerups;
     private int totalOrdersDelivered;
 
     public PlateStation plateStation;
@@ -78,6 +81,7 @@ public class PlayScreen implements Screen {
     public Boolean scenarioComplete;
     public Boolean createdOrder;
     public Boolean unlocksGenerated;
+    public Boolean powerupGenerated;
     private Boolean unlockNewRecipes;
 
     public static float trayX;
@@ -106,6 +110,7 @@ public class PlayScreen implements Screen {
         scenarioComplete = Boolean.FALSE;
         createdOrder = Boolean.FALSE;
         unlocksGenerated = Boolean.FALSE;
+        powerupGenerated = Boolean.FALSE;
         unlockNewRecipes = Boolean.FALSE;
         totalOrdersDelivered = 0;
         gamecam = new OrthographicCamera();
@@ -122,11 +127,14 @@ public class PlayScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, 1 / MainGame.PPM);
         gamecam.position.set(gameport.getWorldWidth() / 2, gameport.getWorldHeight() / 2, 0);
 
-        unlockablesArray = new HashMap<Integer, Unlockable>();
+        unlockablesHashMap = new HashMap<>();
+        powerupHashMap = new HashMap<>();
 
         world = new World(new Vector2(0, 0), true);
         B2WorldCreator B2World = new B2WorldCreator(world, map, this);
         unlockablePositions = B2World.getUnlockablePositions();
+        powerupPositions = B2World.getPowerupGrid();
+        maximumPowerups = powerupPositions.size();
 
         chef1 = new Chef(this.world, 31.5F, 65);
         chef2 = new Chef(this.world, 128, 65);
@@ -136,7 +144,7 @@ public class PlayScreen implements Screen {
         controlledChef.notificationSetBounds("Down");
 
         ordersArray = new ArrayList<>();
-        unlockablesArray = new HashMap<Integer, Unlockable>();
+        unlockablesHashMap = new HashMap<Integer, Unlockable>();
 
     }
 
@@ -282,7 +290,7 @@ public class PlayScreen implements Screen {
                             if (!oventile.getIsPurchased()) {
                                 if(hud.purchaseUnlock()) {
                                     unlockablePositions.remove(oventile.getOvenId());
-                                    unlockablesArray.remove(oventile.getOvenId());
+                                    unlockablesHashMap.remove(oventile.getOvenId());
                                     oventile.setPurchased();
                                     unlockNewRecipes = !unlockNewRecipes;
                                 }
@@ -452,28 +460,33 @@ public class PlayScreen implements Screen {
         Unlockable unlockable;
         for (int i = 0; i < unlockablePositions.size(); i++) {
             unlockable = new Unlockable(money, i, unlockablePositions.get(i).x, unlockablePositions.get(i).y);
-            unlockablesArray.put(i, unlockable);
+            unlockablesHashMap.put(i, unlockable);
         }
     }
 
     public void updatePurchases() {
         totalUnlocks = 3;
         for (int i = 0; i < totalUnlocks; i++) {
-            if (unlockablesArray.containsKey(i)) {
-                unlockablesArray.get(i).create(unlockablesArray.get(i).x * 16, unlockablesArray.get(i).y * 16, game.batch);
+            if (unlockablesHashMap.containsKey(i)) {
+                unlockablesHashMap.get(i).create(unlockablesHashMap.get(i).x * 16, unlockablesHashMap.get(i).y * 16, game.batch);
             }
         }
-        //unlockablesArray.get(0).create(80, 112, game.batch);
-        //unlockablesArray.get(1).create(96, 112, game.batch);
-        //unlockablesArray.get(2).create(112, 112, game.batch);
+    }
 
-        //if (unlockablesArray.size() != 0) {
-        //    for (Unlockable unlock : unlockablesArray) {
-        //        unlock.create(trayX, trayY, game.batch, unlockablesArray.indexOf(unlock));
-        //    }
-        //    //ordersArray.get(i).create(trayX, trayY, game.batch);
-        //    //ordersArray.get(i).create(trayX, trayY, game.batch, i);
-        //}
+    public void createPowerup() { //THIS IS WORKING!! NOW JUST MAKE IT PROGRAMMATIC!!!
+        Texture powerupTexture = new Texture("powerup_speed.png");
+        int randomNum = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        Powerup powerup;
+        powerup = new Powerup(powerupTexture, randomNum, powerupPositions.get(randomNum).x, powerupPositions.get(randomNum).y);
+        powerupHashMap.put(randomNum, powerup);
+    }
+
+    public void updatePowerup() {
+        for (int i = 0; i < maximumPowerups; i++) {
+            if (powerupHashMap.containsKey(i)) {
+                powerupHashMap.get(i).create(powerupHashMap.get(i).x * 16, powerupHashMap.get(i).y * 16, game.batch);
+            }
+        }
     }
 
     /**
@@ -511,6 +524,11 @@ public class PlayScreen implements Screen {
             unlocksGenerated = !unlocksGenerated;
         }
 
+        if(!powerupGenerated) {
+            createPowerup();
+            powerupGenerated = !powerupGenerated;
+        }
+
         float period = 1f;
         if (timeSeconds > period) {
             timeSeconds -= period;
@@ -527,6 +545,7 @@ public class PlayScreen implements Screen {
 
         updateOrder();
         updatePurchases();
+        updatePowerup();
 
         chef1.draw(game.batch);
         chef2.draw(game.batch);

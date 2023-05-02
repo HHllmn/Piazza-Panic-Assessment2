@@ -111,4 +111,9 @@
    <object id="1" name="oven" x="1.125" y="1.875" width="13.125" height="12.25"/>
   </objectgroup>
  </tile>
+ <tile id="25">
+  <objectgroup draworder="index" id="2">
+   <object id="1" name="powerup_spawn" x="0.986842" y="0.986842" width="13.8816" height="14.0132"/>
+  </objectgroup>
+ </tile>
 </tileset>

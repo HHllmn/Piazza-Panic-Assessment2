@@ -30,18 +30,19 @@ import java.util.Map;
 public class B2WorldCreator {
 
     private int unlockableCount;
+    private int powerupCount;
     private Map<Integer, Point> unlockablePositions;
-    private ArrayList<Point> powerupGrid;
+    private Map<Integer, Point> powerupGrid;
 
     public Map<Integer, Point> getUnlockablePositions() {
         return unlockablePositions;
     }
 
-    public ArrayList<Point> getPowerupGrid() {
+    public Map<Integer, Point> getPowerupGrid() {
         return powerupGrid;
     }
 
-    /**
+/**
  * Constructor method for B2WorldCreator. It accepts a World, TiledMap and PlayScreen
  * objects. The method then iterates over the cells in the first layer of the TiledMap and
  * uses the map objects to create various objects like worktop, plates, chopping board,
@@ -57,7 +58,7 @@ public class B2WorldCreator {
     public B2WorldCreator(World world, TiledMap map, PlayScreen screen) {
         unlockableCount = 0;
         unlockablePositions = new HashMap<>();
-        powerupGrid = new ArrayList<>();
+        powerupGrid = new HashMap<>();
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
@@ -114,17 +115,18 @@ public class B2WorldCreator {
                     new Oven(world, map, bdef, rectangle, unlockableCount);
                     unlockablePositions.put(unlockableCount, new Point(x, y));
                     unlockableCount++;
+                } else if (mapObject.getName().equals("powerup_spawn")) {
+                    new PowerupSpawn(world, map, bdef, rectangle, powerupCount);
+                    powerupGrid.put(powerupCount, new Point(x, y));
+                    powerupCount++;
                 } else if (mapObject.getName().equals("completed_dish")) {
                     new CompletedDishStation(world, map, bdef, rectangle);
                 } else if (mapObject.getName().equals("order_top")) {
                     PlayScreen.trayX = rectangle.x;
                     PlayScreen.trayY = rectangle.y;
-                } else {
-                    powerupGrid.add(new Point(x, y));
                 }
 
             }
         }
-        powerupGrid.size();
     }
 }
