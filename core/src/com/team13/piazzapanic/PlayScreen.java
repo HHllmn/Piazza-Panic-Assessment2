@@ -51,6 +51,7 @@ public class PlayScreen implements Screen {
     private final MainGame game;
     private final OrthographicCamera gamecam;
     private final Viewport gameport;
+    public static boolean endlessOver = false;
     public static HUD hud;
 
     private final TiledMap map;
@@ -89,11 +90,14 @@ public class PlayScreen implements Screen {
 
     public static float timeSeconds = 0f;
 
-    private float timeSecondsCount = 0f;
+    public static float timeSecondsCount = 0f;
+    public static float timeSecondsTotal = 0f;
 
     private float lastEndlessTime = -1;
 
-    private float orderDelay = 22;
+    private float orderDelay = 25;
+    private boolean gameStarted = false;
+
 
     /**
      * PlayScreen constructor initializes the game instance, sets initial conditions for scenarioComplete and createdOrder,
@@ -146,6 +150,7 @@ public class PlayScreen implements Screen {
         ordersArray = new ArrayList<>();
         unlockablesHashMap = new HashMap<Integer, Unlockable>();
 
+        orderDelay = orderDelay - 5*(MainGame.difficulty-1);
     }
 
     @Override
@@ -398,28 +403,38 @@ public class PlayScreen implements Screen {
         else {
             order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
         }
-        order = new Order(PlateStation.saladRecipe, salad_recipe);
         ordersArray.add(order);
         //hud.updateOrder(Boolean.FALSE, 1);
         timeSecondsCount = 0;
     }
 
     public void endlessOrders() {
-        int randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-        Texture burger_recipe = new Texture("Food/burger_recipe.png");
-        Texture salad_recipe = new Texture("Food/salad_recipe.png");
-        Order order;
+        if (endlessOver == Boolean.FALSE) {
 
-        //lastEndlessTime = Math.round((timeSecondsCount));
-        if (randomNum == 1 || randomNum == 3) {
-            order = new Order(PlateStation.saladRecipe, salad_recipe);
-        } else {
-            order = new Order(PlateStation.burgerRecipe, burger_recipe);
+            int randomNumberBound = 2;
+            if (unlockNewRecipes) randomNumberBound = 4;
+            int randomNum = ThreadLocalRandom.current().nextInt(1, randomNumberBound + 1);
+            Texture burger_recipe = new Texture("Food/burger_recipe.png");
+            Texture salad_recipe = new Texture("Food/salad_recipe.png");
+            Texture jacket_potato_recipe = new Texture("Food/jacket_potato_recipe.png");
+            Texture pizza_recipe = new Texture("Food/pizza_recipe.png");
+            Order order;
+
+            //lastEndlessTime = Math.round((timeSecondsCount));
+            if (randomNum == 1) {
+                order = new Order(PlateStation.burgerRecipe, burger_recipe);
+            } else if (randomNum == 2) {
+                order = new Order(PlateStation.saladRecipe, salad_recipe);
+            } else if (randomNum == 3) {
+                order = new Order(PlateStation.jacketPotatoRecipe, jacket_potato_recipe);
+            } else {
+                order = new Order(PlateStation.pizzaRecipe, pizza_recipe);
+            }
+            ordersArray.add(order);
+            randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+            //hud.updateOrder(Boolean.FALSE,totalOrdersDelivered);
+            timeSecondsCount = 0;
         }
-        ordersArray.add(order);
-        randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-        //hud.updateOrder(Boolean.FALSE,totalOrdersDelivered);
-        timeSecondsCount =0;
     }
 
     /**
@@ -450,6 +465,15 @@ public class PlayScreen implements Screen {
             else{
                 for (int i = 0; i < ordersArray.size(); i++) {
                     ordersArray.get(i).create(trayX, trayY, game.batch, i);
+                }
+            }
+        }
+        if(MainGame.GameMode == MainGame.Mode.ENDLESS) {
+            if (ordersArray.size() > 0) {
+                if (timeSecondsTotal - ordersArray.get(0).timeMade > Order.orderTimeout) {
+                    ordersArray.remove(0);
+                    hud.reputationPoints -= 1;
+                    if (hud.reputationPoints <= 0) endlessOver = Boolean.TRUE;
                 }
             }
         }
@@ -506,6 +530,7 @@ public class PlayScreen implements Screen {
         //Execute handleEvent each 1 second
         timeSeconds += Gdx.graphics.getRawDeltaTime();
         timeSecondsCount += Gdx.graphics.getDeltaTime();
+        timeSecondsTotal += Gdx.graphics.getDeltaTime();
         if (MainGame.GameMode == MainGame.Mode.SITUATION ) {
             if (Math.round(timeSecondsCount) % 5 == 0 && totalOrdersDelivered < 5 && !createdOrder) {
                 createdOrder = Boolean.TRUE;
