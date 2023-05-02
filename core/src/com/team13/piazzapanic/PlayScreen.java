@@ -49,6 +49,7 @@ public class PlayScreen implements Screen {
     private final MainGame game;
     private final OrthographicCamera gamecam;
     private final Viewport gameport;
+    public static boolean endlessOver = false;
     public static HUD hud;
 
     private final TiledMap map;
@@ -84,7 +85,7 @@ public class PlayScreen implements Screen {
 
     private float orderDelay = 10;
     private boolean gameStarted = false;
-    public boolean endlessOver = false;
+
 
     /**
      * PlayScreen constructor initializes the game instance, sets initial conditions for scenarioComplete and createdOrder,
@@ -378,21 +379,23 @@ public class PlayScreen implements Screen {
     }
 
     public void endlessOrders() {
-        int randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-        Texture burger_recipe = new Texture("Food/burger_recipe.png");
-        Texture salad_recipe = new Texture("Food/salad_recipe.png");
-        Order order;
+        if (endlessOver == Boolean.FALSE) {
+            int randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+            Texture burger_recipe = new Texture("Food/burger_recipe.png");
+            Texture salad_recipe = new Texture("Food/salad_recipe.png");
+            Order order;
 
-        //lastEndlessTime = Math.round((timeSecondsCount));
-        if (randomNum == 1 || randomNum == 3) {
-            order = new Order(PlateStation.saladRecipe, salad_recipe);
-        } else {
-            order = new Order(PlateStation.burgerRecipe, burger_recipe);
+            //lastEndlessTime = Math.round((timeSecondsCount));
+            if (randomNum == 1 || randomNum == 3) {
+                order = new Order(PlateStation.saladRecipe, salad_recipe);
+            } else {
+                order = new Order(PlateStation.burgerRecipe, burger_recipe);
+            }
+            ordersArray.add(order);
+            randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
+            hud.updateOrder(Boolean.FALSE, 1);
+            timeSecondsCount = 0;
         }
-        ordersArray.add(order);
-        randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-        hud.updateOrder(Boolean.FALSE,1);
-        timeSecondsCount = 0;
     }
 
     /**

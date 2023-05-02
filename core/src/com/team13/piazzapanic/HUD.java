@@ -100,11 +100,36 @@ public class HUD implements Disposable {
      * @param scenarioComplete Whether the game scenario has been completed.
      */
     public void updateTime(Boolean scenarioComplete){
-        if(scenarioComplete){
+        if((MainGame.GameMode == MainGame.Mode.SITUATION) && (scenarioComplete==Boolean.TRUE)){
             timeLabel.setColor(Color.GREEN);
             timeStr = String.format("%d", worldTimerM) + ":" + String.format("%d", worldTimerS);
             timeLabel.setText(String.format("TIME: " + timeStr + " MONEY: %d", money));
             timeLabelT.setText("SCENARIO COMPLETE");
+            table.center().top();
+            stage.addActor(table);
+            return;
+        }
+        else if (PlayScreen.endlessOver == Boolean.TRUE){
+            timeLabel.setColor(Color.BLACK);
+            timeLabelT.setColor(Color.RED);
+            timeStr = String.format("%d", worldTimerM) + ":" + String.format("%d", worldTimerS);
+            timeLabel.setText(String.format("TIME: " + timeStr + " MONEY: %d", money));
+            timeLabelT.setText("GAME OVER");
+            table.center().top();
+            stage.addActor(table);
+            moneyLabel.setColor(Color.GREEN);
+            moneyLabel.setText("");
+            moneyLabelLT.setText("");
+            moneyLabelLT.remove();
+            moneyLabel.remove();
+            table.center().top();
+            stage.addActor(table);
+            orderNumL.remove();
+            orderNumLT.remove();
+            table.center().top();
+            stage.addActor(table);
+            reputationLabel.remove(); //ReputationNumL should be used here when implemented
+            reputationLabelT.remove(); //ReputationNumLT should be used here when implemented
             table.center().top();
             stage.addActor(table);
             return;
@@ -125,6 +150,7 @@ public class HUD implements Disposable {
             timeStr = String.format("%d", worldTimerM) + ":" + String.format("%d", worldTimerS);
         }
         timeLabel.setText(timeStr);
+        reputationLabel.setText(reputationPoints);
         stage.addActor(table);
 
     }
@@ -154,7 +180,7 @@ public class HUD implements Disposable {
         }
 
 
-        if(scenarioComplete==Boolean.TRUE){
+        if((scenarioComplete==Boolean.TRUE)){
             moneyLabel.setColor(Color.GREEN);
             moneyLabel.setText("");
             moneyLabelLT.setText("");
@@ -200,8 +226,8 @@ public class HUD implements Disposable {
     // needs to fail the game if the reputation hits 0.
     public void updateReputation(Integer reputationNum){
         if(reputationNum >= 0){
-            orderNumL.remove(); //ReputationNumL should be used here when implemented
-            orderNumLT.remove(); //ReputationNumLT should be used here when implemented
+            reputationLabel.remove(); //ReputationNumL should be used here when implemented
+            reputationLabelT.remove(); //ReputationNumLT should be used here when implemented
             table.center().top();
             stage.addActor(table);
             return;
