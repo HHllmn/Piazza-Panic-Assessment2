@@ -150,7 +150,9 @@ public class HUD implements Disposable {
             timeStr = String.format("%d", worldTimerM) + ":" + String.format("%d", worldTimerS);
         }
         timeLabel.setText(timeStr);
-        reputationLabel.setText(reputationPoints);
+        if (MainGame.GameMode == MainGame.Mode.ENDLESS){
+            reputationLabel.setText(reputationPoints);
+        }
         stage.addActor(table);
 
     }

@@ -499,7 +499,7 @@ public class PlayScreen implements Screen {
 
     public void createPowerup() { //THIS IS WORKING!! NOW JUST MAKE IT PROGRAMMATIC!!!
         Texture powerupTexture = new Texture("powerup_speed.png");
-        int randomNum = ThreadLocalRandom.current().nextInt(1, 6 + 1);
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 5);
         Powerup powerup;
         powerup = new Powerup(powerupTexture, randomNum, powerupPositions.get(randomNum).x, powerupPositions.get(randomNum).y);
         powerupHashMap.put(randomNum, powerup);
