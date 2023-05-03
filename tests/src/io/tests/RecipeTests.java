@@ -4,21 +4,15 @@ import Ingredients.Ingredient;
 import Ingredients.*;
 import Recipe.*;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.team13.piazzapanic.MainGame;
 import com.team13.piazzapanic.Orders;
-import io.utils.MockGame;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.internal.matchers.Or;
 
 import java.util.ArrayList;
 
-import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 

@@ -23,7 +23,7 @@ import java.util.List;
 public class PlateStation extends InteractiveTileObject {
 
     /** List of ingredients placed on the plate */
-    private final List<Ingredient> plate;
+    private final List<Ingredients.Ingredient> plate;
 
     /** Static recipe for a burger */
     public static Recipe burgerRecipe;
@@ -64,7 +64,7 @@ public class PlateStation extends InteractiveTileObject {
      *
      * @param ing the Ingredient object to be added to the plate
      */
-    public void dropItem(Ingredient ing) {
+    public void dropItem(Ingredients.Ingredient ing) {
         plate.add(ing);
         checkRecipeCreated();
     }
@@ -77,7 +77,7 @@ public class PlateStation extends InteractiveTileObject {
         if (plate.size() == burgerRecipe.getIngredients().size()) {
             boolean burgerSame = true;
             boolean burgerIngFound;
-            for (Ingredient ing : plate) {
+            for (Ingredients.Ingredient ing : plate) {
                 burgerIngFound = false;
                 for (int j = 0; j < burgerRecipe.getIngredients().size(); j++) {
                     if (ing.getClass().toString().equals(burgerRecipe.getIngredients().get(j).getClass().toString())) {
@@ -98,7 +98,7 @@ public class PlateStation extends InteractiveTileObject {
         if (plate.size() == saladRecipe.getIngredients().size()) {
             boolean saladSame = true;
             boolean saladIngFound;
-            for (Ingredient ing : plate) {
+            for (Ingredients.Ingredient ing : plate) {
                 saladIngFound = false;
                 for (int j = 0; j < saladRecipe.getIngredients().size(); j++) {
                     if (ing.getClass().toString().equals(saladRecipe.getIngredients().get(j).getClass().toString())) {
@@ -119,7 +119,7 @@ public class PlateStation extends InteractiveTileObject {
         if (plate.size() == jacketPotatoRecipe.getIngredients().size()) {
             boolean jacketPotatoSame = true;
             boolean jacketPotatoIngFound;
-            for (Ingredient ing : plate) {
+            for (Ingredients.Ingredient ing : plate) {
                 jacketPotatoIngFound = false;
                 for (int j = 0; j < jacketPotatoRecipe.getIngredients().size(); j++) {
                     if (ing.getClass().toString().equals(jacketPotatoRecipe.getIngredients().get(j).getClass().toString())) {
