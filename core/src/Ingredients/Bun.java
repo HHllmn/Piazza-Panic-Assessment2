@@ -29,7 +29,6 @@ public class Bun extends Ingredient {
      * @param prepareTime The time required to prepare the ingredient.
      * @param cookTime The time required to cook the ingredient.
      */
-
     public Bun(final float prepareTime, final float cookTime) {
         super(prepareTime, cookTime);
         super.setPrepared();
