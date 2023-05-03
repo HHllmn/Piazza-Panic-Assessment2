@@ -1,7 +1,7 @@
 /**
  *  Bun is an ingredient in the game.
  */
-package ingredients;
+package Ingredients;
 
 import com.badlogic.gdx.graphics.Texture;
 
