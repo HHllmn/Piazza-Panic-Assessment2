@@ -1,13 +1,9 @@
 package Sprites;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.team13.piazzapanic.MainGame;
-import com.team13.piazzapanic.PlayScreen;
 
 /**
  * The `Order` class extends the `Sprite` class and represents a recipe order
@@ -19,8 +15,9 @@ public class Powerup extends Sprite {
      */
     public Texture powerupImg;
     public int powerUpId;
-
     private PowerUpType powerUpType;
+    private int x;
+    private int y;
 
     public enum PowerUpType {
         REPUTATION,
@@ -34,15 +31,30 @@ public class Powerup extends Sprite {
         return powerUpType;
     }
 
-    public int x;
-    public int y;
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return y;
+    }
 
     /**
      * Constructor for the `PowerUp` class.
      *
      * @param powerupImg The image representing this PowerUp.
+     * @param id The ID of this PowerUp.
+     * @param x The x coordinate of this PowerUp.
+     * @param y The y coordinate of this PowerUp.
+     * @param type The type of PowerUp.
      */
-    public Powerup(Texture powerupImg, int id, int x, int y, PowerUpType type) {
+    public Powerup(final Texture powerupImg,
+                   final int id,
+                   final int x,
+                   final int y,
+                   final PowerUpType type) {
         this.powerupImg = powerupImg;
         this.powerUpId = id;
         this.powerUpType = type;
@@ -57,7 +69,7 @@ public class Powerup extends Sprite {
      * @param y     The y coordinate of the order image.
      * @param batch The `SpriteBatch` to add the order image to.
      */
-    public void create(float x, float y, SpriteBatch batch) {
+    public void create(final float x, final float y, final SpriteBatch batch) {
         Sprite sprite = new Sprite(powerupImg);
         float adjustedX = x / MainGame.PPM;
         float adjustedY = y / MainGame.PPM;

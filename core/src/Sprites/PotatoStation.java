@@ -20,7 +20,10 @@ public class PotatoStation extends InteractiveTileObject {
      * @param bdef the BodyDef for the physics of the PotatoStation
      * @param rectangle the rectangle representing the boundaries of the PotatoStation
      */
-    public PotatoStation(World world, TiledMap map, BodyDef bdef, Rectangle rectangle) {
+    public PotatoStation(final World world,
+                         final TiledMap map,
+                         final BodyDef bdef,
+                         final Rectangle rectangle) {
         super(world, map, bdef, rectangle);
         fixture.setUserData(this);
     }
@@ -30,8 +33,8 @@ public class PotatoStation extends InteractiveTileObject {
      *
      * @return a Potato object
      */
-    public Ingredient getIngredient(){
-        return (new Potato(2,0));
+    public Ingredient getIngredient() {
+        return (new Potato(2, 0));
     }
 }
 

@@ -582,23 +582,26 @@ public class PlayScreen implements Screen {
     public void updatePowerup() {
         for (int i = 0; i < maximumPowerups; i++) {
             if (powerupHashMap.containsKey(i)) {
-                powerupHashMap.get(i).create(powerupHashMap.get(i).x * 16, powerupHashMap.get(i).y * 16, game.batch);
+                powerupHashMap.get(i).create((int) powerupHashMap.get(i).getX() * 16, (int) powerupHashMap.get(i).getY() * 16, game.batch);
             }
         }
     }
 
     /**
 
-     The render method updates the screen by calling the update method with the given delta time, and rendering the graphics of the game.
+     The render method updates the screen by calling the update method with
+     the given delta time, and rendering the graphics of the game.
 
-     It updates the HUD time, clears the screen, and renders the renderer and the hud.
+     It updates the HUD time, clears the screen, and renders the renderer and
+     the hud.
 
-     Additionally, it checks the state of the game and draws the ingredients, completed recipes, and notifications on the screen.
+     Additionally, it checks the state of the game and draws the ingredients,
+     completed recipes, and notifications on the screen.
 
      @param delta The time in seconds since the last frame.
      */
     @Override
-    public void render(float delta){
+    public void render(final float delta){
         update(delta);
 
         //Execute handleEvent each 1 second
