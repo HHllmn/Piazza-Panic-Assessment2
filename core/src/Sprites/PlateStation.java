@@ -12,10 +12,10 @@ import java.util.List;
 
 /**
  * PlateStation class represents a Plate Station in the game where the player can drop or pick up ingredients.
- *
+ * <p>
  * It extends InteractiveTileObject and provides the functionality of checking if a recipe is complete,
  * and getting the completed recipe or individual ingredients from the plate.
- *
+ * <p>
  * It also has a List of ingredients placed on the plate and two static recipes (burger and salad).
  * The checkRecipeCreated method checks if the ingredients on the plate match any of the two recipes.
  */

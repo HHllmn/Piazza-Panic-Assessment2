@@ -1,12 +1,9 @@
 package Recipe;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.team13.piazzapanic.MainGame;
 import com.team13.piazzapanic.PlayScreen;
 
@@ -18,7 +15,7 @@ public class Order extends Sprite {
     /**
      * The `Recipe` object associated with this order.
      */
-    public Recipe recipe;
+    public final Recipe recipe;
     /**
      * A flag indicating whether the order has been completed.
      */
@@ -26,11 +23,12 @@ public class Order extends Sprite {
     /**
      * The image representing this order.
      */
-    public Texture orderImg;
+    public final Texture orderImg;
     public float timeMade;
     Texture timerTex;
-    Texture borderTexG, borderTexO, borderTexR;
-    Rectangle rect;
+    final Texture borderTexG;
+    final Texture borderTexO;
+    final Texture borderTexR;
     public static int orderTimeout = 40;
     float timeSince;
     Sprite timerSprite;

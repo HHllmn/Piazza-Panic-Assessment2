@@ -1,6 +1,5 @@
 package io.tests;
 
-import Ingredients.Ingredient;
 import Ingredients.*;
 import Recipe.*;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,7 +12,6 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 

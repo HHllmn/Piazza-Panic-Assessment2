@@ -13,11 +13,11 @@ public class Powerup extends Sprite {
     /**
      * The image representing this Powerup.
      */
-    public Texture powerupImg;
-    public int powerUpId;
-    private PowerUpType powerUpType;
-    private int x;
-    private int y;
+    public final Texture powerupImg;
+    public final int powerUpId;
+    private final PowerUpType powerUpType;
+    private final int x;
+    private final int y;
 
     public enum PowerUpType {
         REPUTATION,

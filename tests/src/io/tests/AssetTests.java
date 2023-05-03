@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.internal.util.collections.Sets;
-import static org.junit.Assert.assertTrue;
 
 @RunWith(GdxTestRunner.class)
 public class AssetTests {
@@ -53,7 +52,7 @@ public class AssetTests {
             "Food/Toasted_burger_buns.png",
             "Food/Tomato.png",
 
-            //Other PNG (Tiles for kitchen etc)
+            //Other PNG (Tiles for kitchen etc.)
             "TileSet.png",
             "Tile_set.png"
     );

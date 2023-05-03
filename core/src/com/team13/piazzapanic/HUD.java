@@ -2,7 +2,6 @@ package com.team13.piazzapanic;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,11 +10,10 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import jdk.jfr.internal.tool.Main;
 
 
 public class HUD implements Disposable {
-    public Stage stage;
+    public final Stage stage;
     public Boolean scenarioComplete; //Changed from private to public for testing
 
     public Integer worldTimerM;//Changed from private to public for testing
@@ -30,17 +28,15 @@ public class HUD implements Disposable {
     public Integer reputationPoints;
     public String timeStr;
 
-    public Table table;
+    public final Table table;
 
-    public Label timeLabelT;
-    public Label timeLabel;
+    public final Label timeLabelT;
+    public final Label timeLabel;
 
-    Label scoreLabel;
-    Label scoreLabelT;
-    public Label moneyLabel;//Changed for testing private-public
-    public Label moneyLabelLT;//Changed for testing private-public
-    public Label orderNumL;//Changed for testing private-public
-    public Label orderNumLT;//Changed for testing private-public
+    public final Label moneyLabel;//Changed for testing private-public
+    public final Label moneyLabelLT;//Changed for testing private-public
+    public final Label orderNumL;//Changed for testing private-public
+    public final Label orderNumLT;//Changed for testing private-public
     public Label reputationLabelT;
     public Label reputationLabel;
 

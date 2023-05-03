@@ -1,13 +1,9 @@
 package Sprites;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.team13.piazzapanic.MainGame;
-import com.team13.piazzapanic.PlayScreen;
 
 /**
  * The `Order` class extends the `Sprite` class and represents a recipe order
@@ -17,10 +13,10 @@ public class Unlockable extends Sprite {
     /**
      * The image representing this unlockable.
      */
-    public Texture unlockableImg;
-    public int lockedId;
-    public int x;
-    public int y;
+    public final Texture unlockableImg;
+    public final int lockedId;
+    public final int x;
+    public final int y;
 
     /**
      * Constructor for the `Unlockable` class.

@@ -2,7 +2,6 @@ package com.team13.piazzapanic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Game;
 
@@ -10,7 +9,7 @@ public class MainGame extends Game {
 
 	/**
 	 * MainGame class is the central class of the game that creates and manages the two screens, PlayScreen and StartScreen.
-	 *
+	 * <p>
 	 * Class Members:
 	 *     V_WIDTH (int): Width of the view.
 	 *     V_HEIGHT (int): Height of the view.
@@ -20,7 +19,7 @@ public class MainGame extends Game {
 	 *     isPlayScreen (bool): Flag indicating whether the PlayScreen is displayed or not.
 	 *     playScreen (PlayScreen): Instance of PlayScreen.
 	 *     startScreen (StartScreen): Instance of StartScreen.
-	 *
+	 * <p>
 	 * Methods:
 	 *     __init__: Initializes the MainGame class.
 	 *     create: Creates the instances of StartScreen and PlayScreen and initializes the SpriteBatch instance.

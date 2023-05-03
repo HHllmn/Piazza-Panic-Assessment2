@@ -11,12 +11,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class Orders implements Disposable {
-    public Stage stage;
+    public final Stage stage;
 
-    private Order[] orders[];
-
-    Label timeLabelT;
-    Label timeLabel;
+    private Order[][] orders;
 
     /**
      * Constructor for the class, initialises an area for the orders to be placed.

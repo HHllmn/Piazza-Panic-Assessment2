@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.team13.piazzapanic.MainGame;
 import com.team13.piazzapanic.PauseScreen;
 import com.team13.piazzapanic.StartScreen;
-//import jdk.tools.jmod.Main;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -43,12 +42,12 @@ public class ScreenTests {
     @Test
     public void SelectGameModeTest(){
         MainGame game = new MainGame();
-        game.GameMode = MainGame.Mode.ENDLESS;
+        MainGame.GameMode = MainGame.Mode.ENDLESS;
         StartScreen screen = new StartScreen(game);
         screen.show();
         Texture texture1 = screen.backgroundImage;
 
-        game.GameMode = MainGame.Mode.SITUATION;
+        MainGame.GameMode = MainGame.Mode.SITUATION;
         screen.show();
         Texture texture2 = screen.backgroundImage;
 

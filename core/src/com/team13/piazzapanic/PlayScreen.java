@@ -31,12 +31,12 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * The PlayScreen class is responsible for displaying the game to the user and handling the user's interactions.
  * The PlayScreen class implements the Screen interface which is part of the LibGDX framework.
- *
+ * <p>
  * The PlayScreen class contains several important fields, including the game instance, stage instance, viewport instance,
  * and several other helper classes and variables. The game instance is used to access the global game configuration and
  * to switch between screens. The stage instance is used to display the graphics and handle user interactions, while the
  * viewport instance is used to manage the scaling and resizing of the game window.
- *
+ * <p>
  * The PlayScreen class also contains several methods for initializing and updating the game state, including the
  * constructor, show(), render(), update(), and dispose() methods. The constructor sets up the stage, viewport, and
  * other helper classes and variables. The show() method is called when the PlayScreen becomes the active screen. The
@@ -67,15 +67,12 @@ public class PlayScreen implements Screen {
 
     private Chef controlledChef;
 
-    private Integer money;
-
-    public ArrayList<Order> ordersArray;
+    public final ArrayList<Order> ordersArray;
     public Map<Integer, Unlockable> unlockablesHashMap;
-    private Map<Integer, Point> unlockablePositions;
-    public Map<Integer, Powerup> powerupHashMap;
-    private Map<Integer, Point> powerupPositions;
-    private int totalUnlocks;
-    private int maximumPowerups;
+    private final Map<Integer, Point> unlockablePositions;
+    public final Map<Integer, Powerup> powerupHashMap;
+    private final Map<Integer, Point> powerupPositions;
+    private final int maximumPowerups;
     private int totalOrdersDelivered;
 
     public PlateStation plateStation;
@@ -95,10 +92,7 @@ public class PlayScreen implements Screen {
     public static float timeSecondsCount = 0f;
     public static float timeSecondsTotal = 0f;
 
-    private float lastEndlessTime = -1;
-
     private float orderDelay = 25;
-    private boolean gameStarted = false;
 
 
     /**
@@ -112,7 +106,6 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(MainGame game) {
         this.game = game;
-        money = 0;
         scenarioComplete = Boolean.FALSE;
         createdOrder = Boolean.FALSE;
         unlocksGenerated = Boolean.FALSE;
@@ -125,7 +118,6 @@ public class PlayScreen implements Screen {
         gameport = new FitViewport(MainGame.V_WIDTH / MainGame.PPM, MainGame.V_HEIGHT / MainGame.PPM, gamecam);
         // create HUD for score & time
         hud = new HUD(game.batch);
-        Point position;
         // create orders hud
         Orders orders = new Orders(game.batch);
         // create map
@@ -151,7 +143,7 @@ public class PlayScreen implements Screen {
         controlledChef.notificationSetBounds("Down");
 
         ordersArray = new ArrayList<>();
-        unlockablesHashMap = new HashMap<Integer, Unlockable>();
+        unlockablesHashMap = new HashMap<>();
 
         orderDelay = orderDelay - 5*(MainGame.difficulty-1);
     }
@@ -164,25 +156,24 @@ public class PlayScreen implements Screen {
 
     /**
      * The handleInput method is responsible for handling the input events of the game such as movement and interaction with objects.
-     *
+     * <p>
      * It checks if the 'R' key is just pressed and both chefs have the user control, if so,
      * it switches the control between the two chefs.
-     *
+     * <p>
      * If the controlled chef does not have the user control,
      * the method checks if chef1 or chef2 have the user control and sets the control to that chef.
-     *
+     * <p>
      * If the controlled chef has the user control,
      * it checks if the 'W', 'A', 'S', or 'D' keys are pressed and sets the velocity of the chef accordingly.
-     *
+     * <p>
      * If the 'E' key is just pressed and the chef is touching a tile,
      * it checks the type of tile and sets the chef's in-hands ingredient accordingly.
-     *
+     * <p>
      * The method also sets the direction of the chef based on its linear velocity.
      *
-     * @param dt is the time delta between the current and previous frame.
      */
 
-    public void handleInput(float dt) {
+    public void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.R) &&
                 chef1.getUserControlChef() &&
                 chef2.getUserControlChef() &&
@@ -376,7 +367,7 @@ public class PlayScreen implements Screen {
                             Oven oventile = (Oven) tile;
                             if (oventile.getIsPurchased()) {
                                 if (controlledChef.getInHandsRecipe() != null) {
-                                    if (controlledChef.getInHandsRecipe().isCooked() == false) {
+                                    if (!controlledChef.getInHandsRecipe().isCooked()) {
                                         controlledChef.setChefSkin(null); //MIGHT CAUSE BUG
                                         controlledChef.setUserControlChef(false);
                                     }
@@ -386,7 +377,7 @@ public class PlayScreen implements Screen {
                             break;
                         case "Sprites.CompletedDishStation":
                             if (controlledChef.getInHandsRecipe() != null) {
-                                if ((controlledChef.getInHandsRecipe().isCooked() == true) && (controlledChef.getInHandsRecipe().getClass().equals(ordersArray.get(0).recipe.getClass()))) {
+                                if ((controlledChef.getInHandsRecipe().isCooked()) && (controlledChef.getInHandsRecipe().getClass().equals(ordersArray.get(0).recipe.getClass()))) {
                                     controlledChef.dropItemOn(tile);
                                     ordersArray.get(0).orderComplete = true;
                                     controlledChef.setChefSkin(null);
@@ -412,7 +403,7 @@ public class PlayScreen implements Screen {
      * @param dt time interval for the update
      */
     public void update(float dt) {
-        handleInput(dt);
+        handleInput();
 
         gamecam.update();
         renderer.setView(gamecam);
@@ -480,8 +471,6 @@ public class PlayScreen implements Screen {
             if (timeSecondsTotal > 120 && randomNumTwo < 4) ordersArray.add(order);
             if (timeSecondsTotal > 120 && randomNumTwo == 1) ordersArray.add(order);
             ordersArray.add(order);
-            randomNum = ThreadLocalRandom.current().nextInt(1, 2 + 1);
-            //hud.updateOrder(Boolean.FALSE,totalOrdersDelivered);
             timeSecondsCount = 0;
         }
     }
@@ -507,8 +496,8 @@ public class PlayScreen implements Screen {
             }
 
             if (MainGame.GameMode == MainGame.Mode.SITUATION) {
-                for (int i = 0; i < ordersArray.size(); i++) {
-                    ordersArray.get(i).create(trayX, trayY, game.batch);
+                for (Order order : ordersArray) {
+                    order.create(trayX, trayY, game.batch);
                 }
             }
             else{
@@ -538,7 +527,7 @@ public class PlayScreen implements Screen {
     }
 
     public void updatePurchases() {
-        totalUnlocks = 3;
+        int totalUnlocks = 3;
         for (int i = 0; i < totalUnlocks; i++) {
             if (unlockablesHashMap.containsKey(i)) {
                 unlockablesHashMap.get(i).create(unlockablesHashMap.get(i).x * 16, unlockablesHashMap.get(i).y * 16, game.batch);
@@ -615,7 +604,6 @@ public class PlayScreen implements Screen {
             }
         }
         else if (MainGame.GameMode == MainGame.Mode.ENDLESS && orderDelay < Math.round(timeSecondsCount) || createdOrder == Boolean.FALSE) {
-            lastEndlessTime = Math.round(timeSeconds) + orderDelay;
             endlessOrders();
             if (orderDelay > 10)orderDelay = orderDelay - 1;
             if (!createdOrder) createdOrder = Boolean.TRUE;
@@ -697,14 +685,6 @@ public class PlayScreen implements Screen {
 
 
         game.batch.end();
-
-        //game.batch.begin();
-
-        //Texture successTexture = new Texture("Food/pizza.png");
-
-        //game.batch.draw(successTexture, (float) 1.039375, (float) 0.72125, 1, 1);
-
-        //game.batch.end();
 
     }
 

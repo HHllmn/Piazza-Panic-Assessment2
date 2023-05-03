@@ -17,12 +17,12 @@ public class PowerupSpawn extends InteractiveTileObject {
     /**
      *  Integer that states the ID of the oven.
      */
-    private int powerupSpawnId;
+    private final int powerupSpawnId;
 
     /**
      * Boolean that states if the oven has been purchased
      * */
-    private boolean hasPowerup;
+    private final boolean hasPowerup;
 
     public PowerupSpawn(World world, TiledMap map, BodyDef bdef, Rectangle rectangle, int id) {
         super(world, map, bdef, rectangle);
@@ -32,19 +32,6 @@ public class PowerupSpawn extends InteractiveTileObject {
     }
 
     public int getPowerupSpawnId() { return (powerupSpawnId); }
-
-    /**
-     * Returns the boolean isPurchased.
-     *
-     * @return a boolean variable
-     */
-    public boolean getHasPowerup(){
-        return (hasPowerup);
-    }
-
-    public void setHasPowerup(){
-        hasPowerup = true;
-    }
 
     public float getX(){
         return super.bdefNew.position.x;

@@ -19,15 +19,15 @@ public class MainGameTests {
         MainGame game = new MainGame();
         game.batch = mock(SpriteBatch.class);
         game.isStartScreen = true;
-        game.GameMode = MainGame.Mode.SITUATION;
+        MainGame.GameMode = MainGame.Mode.SITUATION;
         Gdx.input = mock(Input.class);
         when(Gdx.input.isKeyJustPressed(Input.Keys.M)).thenReturn(true);
         game.render();
-        Assert.assertTrue(game.GameMode == MainGame.Mode.ENDLESS);
+        Assert.assertSame(MainGame.GameMode, MainGame.Mode.ENDLESS);
 
-        game.GameMode = MainGame.Mode.ENDLESS;
+        MainGame.GameMode = MainGame.Mode.ENDLESS;
         game.render();
-        Assert.assertTrue(game.GameMode == MainGame.Mode.SITUATION);
+        Assert.assertSame(MainGame.GameMode, MainGame.Mode.SITUATION);
 
     }
     @Test
@@ -58,10 +58,10 @@ public class MainGameTests {
         game.isStartScreen = true;
         MainGame.GameMode = MainGame.Mode.ENDLESS;
         game.render();
-        Assert.assertTrue(MainGame.difficulty == 1);
+        Assert.assertEquals(1, MainGame.difficulty);
         when(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)).thenReturn(false);
         when(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)).thenReturn(true);
         game.render();
-        Assert.assertTrue(MainGame.difficulty == 2);
+        Assert.assertEquals(2, MainGame.difficulty);
     }
 }

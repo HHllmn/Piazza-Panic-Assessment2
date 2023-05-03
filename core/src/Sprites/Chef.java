@@ -27,7 +27,7 @@ import java.util.Objects;
  */
 
 public class Chef extends Sprite {
-    public World world;
+    public final World world;
     public Body b2body;
 
     private final float initialX;
@@ -78,7 +78,7 @@ public class Chef extends Sprite {
 
     public Boolean userControlChef;//Changed from private to public for testing
 
-    public Sprite circleSprite;//Changed from private to public for testing, removed it being final
+    public final Sprite circleSprite;//Changed from private to public for testing, removed it being final
 
     private float notificationX;
     private float notificationY;
@@ -87,7 +87,7 @@ public class Chef extends Sprite {
 
     private CompletedDishStation completedStation;
 
-    public int nextOrderAppearTime;
+    public final int nextOrderAppearTime;
     public Recipe previousInHandRecipe;
 
     /**

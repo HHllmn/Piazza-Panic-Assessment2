@@ -11,8 +11,8 @@ import com.team13.piazzapanic.MainGame;
  */
 public abstract class InteractiveTileObject {
 
-    protected Fixture fixture;
-    protected BodyDef bdefNew;
+    protected final Fixture fixture;
+    protected final BodyDef bdefNew;
 
     /**
      * Constructor for the class, initialises b2bodies.

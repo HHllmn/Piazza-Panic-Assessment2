@@ -12,15 +12,14 @@ import com.team13.piazzapanic.MainGame;
 import com.team13.piazzapanic.PlayScreen;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * B2WorldCreator is a class used to create Box2D World objects from a TiledMap.
  * This class uses the map objects to create various objects like worktop, plates,
- * chopperboard, bin, etc. based on the name assigned to the objects in the TiledMap.
- *
+ * ChoppingBoard, bin, etc. based on the name assigned to the objects in the TiledMap.
+ * <p>
  * The class is instantiated with a World object, TiledMap object and PlayScreen object.
  * It then uses the first layer of the TiledMap to create the objects and assign their
  * positions. The objects are created as BodyDef objects and are passed to different sprite
@@ -29,10 +28,9 @@ import java.util.Map;
  */
 public class B2WorldCreator {
 
-    private int unlockableCount;
     private int powerupCount;
-    private Map<Integer, Point> unlockablePositions;
-    private Map<Integer, Point> powerupGrid;
+    private final Map<Integer, Point> unlockablePositions;
+    private final Map<Integer, Point> powerupGrid;
 
     public Map<Integer, Point> getUnlockablePositions() {
         return unlockablePositions;
@@ -47,7 +45,7 @@ public class B2WorldCreator {
  * objects. The method then iterates over the cells in the first layer of the TiledMap and
  * uses the map objects to create various objects like worktop, plates, chopping board,
  * bin, etc. based on the name assigned to the objects in the TiledMap.
- *
+ * <p>
  * The objects are created as BodyDef objects and are passed to different sprite classes,
  * where they are further defined and added to the world.
  *
@@ -56,7 +54,7 @@ public class B2WorldCreator {
  * */
 
     public B2WorldCreator(World world, TiledMap map, PlayScreen screen) {
-        unlockableCount = 0;
+        int unlockableCount = 0;
         unlockablePositions = new HashMap<>();
         powerupGrid = new HashMap<>();
         TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(0);

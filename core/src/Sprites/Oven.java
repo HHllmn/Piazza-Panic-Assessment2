@@ -17,7 +17,7 @@ public class Oven extends InteractiveTileObject {
     /**
      *  Integer that states the ID of the oven.
      */
-    private int unlockableId;
+    private final int unlockableId;
 
     /**
      * Boolean that states if the oven has been purchased

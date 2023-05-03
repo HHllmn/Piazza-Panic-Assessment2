@@ -1,18 +1,14 @@
 package io.tests;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.team13.piazzapanic.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 @RunWith(GdxTestRunner.class)
 public class HUDTests {
@@ -23,25 +19,25 @@ public class HUDTests {
         hud.money = 0;
         hud.scenarioComplete = true;
         hud.updateScore(false, 100);
-        Assert.assertTrue(hud.money == 0);
+        Assert.assertEquals(0, (int) hud.money);
 
         hud.scenarioComplete = false;
         hud.money = 0;
         hud.worldTimerM = 0;
         hud.updateScore(false, 121);
-        Assert.assertTrue(hud.money == 100);
+        Assert.assertEquals(100, (int) hud.money);
 
         hud.money = 0;
         hud.worldTimerM = 2;
         hud.updateScore(false, 119);
-        Assert.assertTrue(hud.money == 95);
+        Assert.assertEquals(95, (int) hud.money);
 
         hud.updateScore(false, 121);
-        Assert.assertTrue(hud.money == 195);
+        Assert.assertEquals(195, (int) hud.money);
 
         hud.worldTimerM = 100;
         hud.updateScore(false, 120);
-        Assert.assertTrue(hud.money == 195);
+        Assert.assertEquals(195, (int) hud.money);
 
         HUD hud2 = new HUD(batch);
         hud2.scenarioComplete = true;
@@ -60,12 +56,12 @@ public class HUDTests {
         hud.money = 0;
         boolean result1 = hud.purchaseUnlock();
         Assert.assertFalse(result1);
-        Assert.assertTrue(hud.money == 0);
+        Assert.assertEquals(0, (int) hud.money);
 
         hud.money = 100;
         boolean result2 = hud.purchaseUnlock();
         Assert.assertTrue(result2);
-        Assert.assertTrue(hud.money == 50);
+        Assert.assertEquals(50, (int) hud.money);
     }
     @Test
     public void updateReputationTest(){
