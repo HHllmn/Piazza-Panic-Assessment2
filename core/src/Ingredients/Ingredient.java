@@ -1,5 +1,6 @@
 /**
- *  Ingredient is the base class for all ingredients to extend.
+ *  Ingredient is the base class for all ingredients to
+ *  extend.
  */
 package Ingredients;
 
@@ -14,36 +15,56 @@ public abstract class Ingredient extends Sprite {
     /**
      * The time required to prepare the ingredient.
      */
-    public float prepareTime;
+    private float prepareTime;
     /**
      * The time required to cook the ingredient.
      */
     public float cookTime;
     /**
-     * A flag to indicate whether the ingredient has been cooked.
+     * A flag to indicate whether the ingredient has been
+     * cooked.
      */
     private boolean amICooked;
     /**
-     * A flag to indicate whether the ingredient has been prepared.
+     * A flag to indicate whether the ingredient has been
+     * prepared.
      */
     private boolean amIPrepared;
     /**
-     * An array of textures representing different states of the ingredient.
+     * An array of textures representing different states of
+     * the ingredient.
      */
     public ArrayList<Texture> tex;
 
     /**
-     * Constructs a new Ingredient object with the specified preparation and cooking times.
+     * Constructs a new Ingredient object with the specified
+     * preparation and cooking times.
      *
      * @param prepareTime The time required to prepare the ingredient.
      * @param cookTime The time required to cook the ingredient.
      */
-    public Ingredient(float prepareTime, float cookTime) {
+    public Ingredient(final float prepareTime, final float cookTime) {
         this.prepareTime = prepareTime;
         this.cookTime = cookTime;
         this.amICooked = false;
         this.amIPrepared = false;
         this.tex = null;
+    }
+
+    /**
+     * Gets the time that the ingredient takes to be prepared.
+     *
+     */
+    public float getPrepareTime() {
+        return prepareTime;
+    }
+
+    /**
+     * Sets the time that the ingredient takes to be prepared.
+     *
+     */
+    public void setPrepareTime(float prepareTime) {
+        this.prepareTime = prepareTime;
     }
 
     /**
@@ -55,7 +76,8 @@ public abstract class Ingredient extends Sprite {
     }
 
     /**
-     * Returns the value of the flag indicating whether the ingredient has been prepared.
+     * Returns the value of the flag indicating whether the
+     * ingredient has been prepared.
      *
      * @return A boolean indicating whether the ingredient has been prepared.
      */
@@ -72,7 +94,8 @@ public abstract class Ingredient extends Sprite {
     }
 
     /**
-     * Returns the value of the flag indicating whether the ingredient has been cooked.
+     * Returns the value of the flag indicating whether the
+     * ingredient has been cooked.
      *
      * @return A boolean indicating whether the ingredient has been cooked.
      */
@@ -96,7 +119,8 @@ public abstract class Ingredient extends Sprite {
     }
 
     /**
-     * Determines the correct texture to use for the ingredient sprite based on its prepare and cook state.
+     * Determines the correct texture to use for the ingredient sprite
+     * based on its prepare and cook state.
      * @return int - The correct skin of the ingredient, either 0, 1, or 2.
      * 0 represents the uncooked and unprepared ingredient.
      * 1 represents the prepared but uncooked ingredient.

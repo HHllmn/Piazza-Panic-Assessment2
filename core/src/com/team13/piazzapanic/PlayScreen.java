@@ -354,7 +354,7 @@ public class PlayScreen implements Screen {
                             break;
                         case "Sprites.ChoppingBoard":
                             if (controlledChef.getInHandsIng() != null) {
-                                if (controlledChef.getInHandsIng().prepareTime > 0) {
+                                if (controlledChef.getInHandsIng().getPrepareTime() > 0) {
                                     controlledChef.setUserControlChef(false);
                                 }
                             }

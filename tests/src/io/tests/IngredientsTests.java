@@ -31,7 +31,7 @@ public class IngredientsTests {
         Assert.assertTrue(bun.isPrepared());
         Bun bun2 = new Bun();
         Assert.assertTrue(bun2.isPrepared());
-        Assert.assertTrue(bun2.prepareTime == 0);
+        Assert.assertTrue(bun2.getPrepareTime() == 0);
         Assert.assertTrue(bun2.cookTime == 3);
     }
     @Test
@@ -73,7 +73,7 @@ public class IngredientsTests {
 
         Steak steak2 = new Steak();
         Assert.assertFalse(steak2.isPrepared());
-        Assert.assertTrue(steak2.prepareTime == 2);
+        Assert.assertTrue(steak2.getPrepareTime() == 2);
         Assert.assertTrue(steak2.cookTime == 3);
     }
     @Test

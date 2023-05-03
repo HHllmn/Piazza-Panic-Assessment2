@@ -214,10 +214,10 @@ public class Chef extends Sprite {
                 }
             }
         } else if (!userControlChef && getInHandsIng() != null) {
-            if (getInHandsIng().prepareTime > 0) {
+            if (getInHandsIng().getPrepareTime() > 0) {
                 waitTimer += dt;
-                if (waitTimer > inHandsIng.prepareTime) {
-                    inHandsIng.prepareTime = 0;
+                if (waitTimer > inHandsIng.getPrepareTime()) {
+                    inHandsIng.setPrepareTime(0);
                     inHandsIng.setPrepared();
                     userControlChef = true;
                     waitTimer = 0;
