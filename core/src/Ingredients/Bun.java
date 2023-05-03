@@ -24,7 +24,8 @@ public class Bun extends Ingredient {
     public static final int DEFAULT_COOKTIME = 3;
 
     /**
-     * Constructs a new Bun object with the specified preparation and cooking times.
+     * Constructs a new Bun object with the specified preparation and
+     * cooking times.
      *
      * @param prepareTime The time required to prepare the ingredient.
      * @param cookTime The time required to cook the ingredient.
@@ -39,7 +40,8 @@ public class Bun extends Ingredient {
     }
 
     /**
-     * Constructs a new Bun object with the default preparation and cooking times.
+     * Constructs a new Bun object with the default preparation and
+     * cooking times.
      */
     public Bun() {
         super(DEFAULT_PREPTIME, DEFAULT_COOKTIME);

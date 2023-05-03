@@ -16,6 +16,12 @@ public class Dough extends Ingredient {
      * ArrayList of textures for its different skins.
      */
 
+    /**
+     * Constructs a new Dough object with the specified preparation and cooking times.
+     *
+     * @param prepareTime The time required to prepare the ingredient.
+     * @param cookTime The time required to cook the ingredient.
+     */
     public Dough(final float prepareTime, final float cookTime) {
         super(prepareTime, cookTime);
         super.tex = new ArrayList<>();

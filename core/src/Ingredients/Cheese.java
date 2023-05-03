@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
-public class Cheese extends Ingredient{
+public class Cheese extends Ingredient {
 
     /**
      * The Cheese class represents a specific type of ingredient in the game,
@@ -17,7 +17,8 @@ public class Cheese extends Ingredient{
      */
 
     /**
-     * Constructs a new Cheese object with the specified preparation and cooking times.
+     * Constructs a new Cheese object with the specified preparation
+     * and cooking times.
      *
      * @param prepareTime The time required to prepare the ingredient.
      * @param cookTime The time required to cook the ingredient.

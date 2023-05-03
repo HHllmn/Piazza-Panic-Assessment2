@@ -48,7 +48,10 @@ public class PlateStation extends InteractiveTileObject {
      * @param bdef the BodyDef object representing the plate's physical body
      * @param rectangle the Rectangle object representing the plate's hitbox
      */
-    public PlateStation(World world, TiledMap map, BodyDef bdef, Rectangle rectangle) {
+    public PlateStation(final World world,
+                        final TiledMap map,
+                        final BodyDef bdef,
+                        final Rectangle rectangle) {
         super(world, map, bdef, rectangle);
         fixture.setUserData(this);
         this.plate = new ArrayList<>();
@@ -167,7 +170,7 @@ public class PlateStation extends InteractiveTileObject {
      *
      * @return An ArrayList of ingredients on the plate.
      */
-    public ArrayList getPlate(){
+    public ArrayList getPlate() {
         return (ArrayList) this.plate;
     }
 
@@ -176,7 +179,7 @@ public class PlateStation extends InteractiveTileObject {
      *
      * @return The completed recipe on the plate, or null if no recipe is completed.
      */
-    public Recipe getCompletedRecipe(){
+    public Recipe getCompletedRecipe() {
         return recipeDone;
     }
 
@@ -185,7 +188,7 @@ public class PlateStation extends InteractiveTileObject {
      *
      * @return The x-coordinate of the plate station.
      */
-    public float getX(){
+    public float getX() {
         return super.bdefNew.position.x;
     }
 
@@ -194,18 +197,20 @@ public class PlateStation extends InteractiveTileObject {
      *
      * @return The y-coordinate of the plate station.
      */
-    public float getY(){
+    public float getY() {
         return super.bdefNew.position.y;
     }
 
     /**
-     * Picks up an item from the plate. If a recipe is completed on the plate, the completed recipe is returned.
-     * If no recipe is completed, the last ingredient on the plate is removed and returned.
+     * Picks up an item from the plate. If a recipe is completed on the plate,
+     * the completed recipe is returned. If no recipe is completed, the last
+     * ingredient on the plate is removed and returned.
      *
-     * @return A Recipe object if a recipe is completed, or an Ingredient object if no recipe is completed.
+     * @return A Recipe object if a recipe is completed, or an Ingredient
+     * object if no recipe is completed.
      */
     public Object pickUpItem() {
-        if (recipeDone != null){
+        if (recipeDone != null) {
             Recipe temp = recipeDone;
             recipeDone = null;
             return temp;
