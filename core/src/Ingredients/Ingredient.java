@@ -61,9 +61,9 @@ public abstract class Ingredient extends Sprite {
 
     /**
      * Sets the time that the ingredient takes to be prepared.
-     *
+     * @param prepareTime The time required to prepare the ingredient.
      */
-    public void setPrepareTime(float prepareTime) {
+    public void setPrepareTime(final float prepareTime) {
         this.prepareTime = prepareTime;
     }
 
@@ -110,11 +110,11 @@ public abstract class Ingredient extends Sprite {
      * @param y The y coordinate of the ingredient.
      * @param batch The SpriteBatch object used to draw the ingredient.
      */
-    public void create(float x, float y, SpriteBatch batch){
+    public void create(final float x, final float y, final SpriteBatch batch) {
         Sprite sprite = new Sprite(tex.get(findCorrectSkin()));
-        float adjustedX =  x - (5/MainGame.PPM);
+        float adjustedX =  x - (5 / MainGame.PPM);
         float adjustedY =  y - (4.95f / MainGame.PPM);
-        sprite.setBounds(adjustedX,adjustedY,10/ MainGame.PPM,10/ MainGame.PPM);
+        sprite.setBounds(adjustedX, adjustedY, 10 / MainGame.PPM,10 / MainGame.PPM);
         sprite.draw(batch);
     }
 
@@ -127,10 +127,10 @@ public abstract class Ingredient extends Sprite {
      * 2 represents the fully cooked and prepared ingredient.
      *
      * */
-    private int findCorrectSkin(){
-        if (isPrepared() && isCooked()){
+    private int findCorrectSkin() {
+        if (isPrepared() && isCooked()) {
             return 2;
-        } else if (isPrepared()){
+        } else if (isPrepared()) {
             return 1;
         } else {
             return 0;
