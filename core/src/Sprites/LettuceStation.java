@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * It is used to represent a station for producing lettuce in the game.
  */
 public class LettuceStation extends InteractiveTileObject {
+
     /**
      * Constructs a LettuceStation.
      *
@@ -20,7 +21,10 @@ public class LettuceStation extends InteractiveTileObject {
      * @param bdef the BodyDef for the physics of the LettuceStation
      * @param rectangle the rectangle representing the boundaries of the LettuceStation
      */
-    public LettuceStation(World world, TiledMap map, BodyDef bdef, Rectangle rectangle) {
+    public LettuceStation(final World world,
+                          final TiledMap map,
+                          final BodyDef bdef,
+                          final Rectangle rectangle) {
         super(world, map, bdef, rectangle);
         fixture.setUserData(this);
     }

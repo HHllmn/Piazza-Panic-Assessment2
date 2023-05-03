@@ -24,7 +24,20 @@ public class Oven extends InteractiveTileObject {
      * */
     private boolean isPurchased;
 
-    public Oven(World world, TiledMap map, BodyDef bdef, Rectangle rectangle, int id) {
+    /**
+     * Constructs a DoughStation.
+     *
+     * @param world the world where the DoughStation will be located.
+     * @param map the TiledMap that the DoughStation is in.
+     * @param bdef the BodyDef for the physics of the DoughStation.
+     * @param rectangle the boundary rectangle of DoughStation.
+     * @param id sets the id of the oven to identify it.
+     */
+    public Oven(final World world,
+                final TiledMap map,
+                final BodyDef bdef,
+                final Rectangle rectangle,
+                final int id) {
         super(world, map, bdef, rectangle);
         unlockableId = id;
         isPurchased = false;
@@ -38,19 +51,19 @@ public class Oven extends InteractiveTileObject {
      *
      * @return a boolean variable
      */
-    public boolean getIsPurchased(){
+    public boolean getIsPurchased() {
         return (isPurchased);
     }
 
-    public void setPurchased(){
+    public void setPurchased() {
         isPurchased = true;
     }
 
-    public float getX(){
+    public float getX() {
         return super.bdefNew.position.x;
     }
 
-    public float getY(){
+    public float getY() {
         return super.bdefNew.position.y;
     }
 }

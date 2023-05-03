@@ -22,7 +22,10 @@ public class BunsStation extends InteractiveTileObject {
      * @param bdef The body definition of a tile.
      * @param rectangle Rectangle shape.
      */
-    public BunsStation(World world, TiledMap map, BodyDef bdef, Rectangle rectangle) {
+    public BunsStation(final World world,
+                       final TiledMap map,
+                       final BodyDef bdef,
+                       final Rectangle rectangle) {
         super(world, map, bdef, rectangle);
         fixture.setUserData(this);
     }

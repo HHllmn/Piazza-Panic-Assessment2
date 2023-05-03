@@ -5,11 +5,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.team13.piazzapanic.MainGame;
 
-
+/**
+ * The `InteractiveTileObject` class is designed to be extended.
+ * It is used to represent a station for producing potato in the game.
+ */
 public abstract class InteractiveTileObject {
 
     protected Fixture fixture;
-
     protected BodyDef bdefNew;
 
     /**
@@ -20,7 +22,10 @@ public abstract class InteractiveTileObject {
      * @param bdef The body definition of a tile.
      * @param rectangle Rectangle shape.
      */
-    public InteractiveTileObject(World world, TiledMap map, BodyDef bdef, Rectangle rectangle) {
+    public InteractiveTileObject(final World world,
+                                 final TiledMap map,
+                                 final BodyDef bdef,
+                                 final Rectangle rectangle) {
 
         bdefNew = bdef;
 

@@ -18,7 +18,10 @@ public class CompletedDishStation extends InteractiveTileObject {
      * @param bdef Body definition for the object
      * @param rectangle The rectangle that defines the object's size and location
      */
-    public CompletedDishStation(final World world, final TiledMap map, final BodyDef bdef, final Rectangle rectangle) {
+    public CompletedDishStation(final World world,
+                                final TiledMap map,
+                                final BodyDef bdef,
+                                final Rectangle rectangle) {
         super(world, map, bdef, rectangle);
         fixture.setUserData(this);
     }
@@ -28,9 +31,7 @@ public class CompletedDishStation extends InteractiveTileObject {
      *
      * @return The x position of the object
      */
-    public float getX(){
-        return super.bdefNew.position.x;
-    }
+    public float getX(){ return super.bdefNew.position.x; }
 
     /**
      * Gets the y position of the object.

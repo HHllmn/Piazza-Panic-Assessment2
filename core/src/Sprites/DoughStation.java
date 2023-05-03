@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * It is used to represent a station for producing potato in the game.
  */
 public class DoughStation extends InteractiveTileObject {
+
     /**
      * Constructs a DoughStation.
      *
@@ -20,7 +21,10 @@ public class DoughStation extends InteractiveTileObject {
      * @param bdef the BodyDef for the physics of the DoughStation
      * @param rectangle the rectangle representing the boundaries of the DoughStation
      */
-    public DoughStation(World world, TiledMap map, BodyDef bdef, Rectangle rectangle) {
+    public DoughStation(final World world,
+                        final TiledMap map,
+                        final BodyDef bdef,
+                        final Rectangle rectangle) {
         super(world, map, bdef, rectangle);
         fixture.setUserData(this);
     }
@@ -31,7 +35,7 @@ public class DoughStation extends InteractiveTileObject {
      * @return a Potato object
      */
     public Ingredient getIngredient(){
-        return (new Dough(2,0));
+        return (new Dough(2, 0));
     }
 }
 
