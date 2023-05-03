@@ -62,7 +62,7 @@ public class Chef extends Sprite {
     private final Texture pattyChef;
     private final Texture completedBurgerChef;
     private final Texture meatChef;
-    private Texture saladChef;
+    private final Texture saladChef;
 
     public enum State {UP, DOWN, LEFT, RIGHT}
 
@@ -159,7 +159,7 @@ public class Chef extends Sprite {
      */
     public void update(float dt) {
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
-        currentSkin = getSkin(dt);
+        currentSkin = getSkin();
         setRegion(currentSkin);
         switch (currentState) {
             case UP:
@@ -289,11 +289,10 @@ public class Chef extends Sprite {
     /**
      * Get the texture region for the current state of the player.
      *
-     * @param dt the time difference between this and the last frame
      * @return the texture region for the player's current state
      */
 
-    private TextureRegion getSkin(float dt) {
+    private TextureRegion getSkin() {
         currentState = getState();
 
         TextureRegion region;
@@ -318,7 +317,7 @@ public class Chef extends Sprite {
 
 
     /**
-     Returns the current state of the player based on the controlled chefs velocity.
+     Returns the current state of the player based on the controlled chef's velocity.
      @return current state of the player - UP, DOWN, LEFT, or RIGHT
      */
     public State getState() {
@@ -336,7 +335,7 @@ public class Chef extends Sprite {
 
     /**
      * Define the body and fixture of the chef object.
-     *
+     * <p>
      * This method creates a dynamic body definition and sets its position with the `initialX` and `initialY`
      * variables, then creates the body in the physics world. A fixture definition is also created and a
      * circle shape is set with a radius of `4.5f / MainGame.PPM` and a position shifted by `(0.5f / MainGame.PPM)`
@@ -365,7 +364,7 @@ public class Chef extends Sprite {
      * Method to set the skin of the chef character based on the item the chef is holding.
      *
      * @param item the item that chef is holding
-     *
+     * <p>
      * The skin is set based on the following cases:
      * - if item is null, then the skin is set to normalChef
      * - if item is a Lettuce, then the skin is set to

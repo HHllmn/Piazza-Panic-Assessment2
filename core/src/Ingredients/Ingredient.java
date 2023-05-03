@@ -1,3 +1,6 @@
+/**
+ *  Ingredient is the base class for all ingredients to extend.
+ */
 package Ingredients;
 
 import com.badlogic.gdx.graphics.Texture;
