@@ -1,6 +1,6 @@
 package com.team13.piazzapanic;
 
-import ingredients.*;
+import Ingredients.*;
 import Recipe.Recipe;
 import Sprites.*;
 import Recipe.Order;

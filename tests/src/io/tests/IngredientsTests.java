@@ -1,6 +1,6 @@
 package io.tests;
 
-import ingredients.*;
+import Ingredients.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.team13.piazzapanic.MainGame;
 import com.team13.piazzapanic.PlayScreen;

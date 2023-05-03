@@ -1,9 +1,9 @@
 package Recipe;
 
-import ingredients.Bun;
-import ingredients.Cheese;
-import ingredients.Potato;
-import ingredients.Steak;
+import Ingredients.Bun;
+import Ingredients.Cheese;
+import Ingredients.Potato;
+import Ingredients.Steak;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;

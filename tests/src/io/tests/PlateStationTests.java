@@ -1,6 +1,6 @@
 package io.tests;
 
-import ingredients.Ingredient;
+import Ingredients.Ingredient;
 import Sprites.PlateStation;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;

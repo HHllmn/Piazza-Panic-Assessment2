@@ -1,7 +1,7 @@
 package io.tests;
 
-import ingredients.Ingredient;
-import ingredients.*;
+import Ingredients.Ingredient;
+import Ingredients.*;
 import Recipe.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
