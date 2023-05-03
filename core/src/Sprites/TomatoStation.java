@@ -1,3 +1,6 @@
+/**
+ *  TomatoStation is a workstation in the game that creates new Tomatoes
+ */
 package Sprites;
 
 import Ingredients.Ingredient;
@@ -20,7 +23,7 @@ public class TomatoStation extends InteractiveTileObject {
         fixture.setUserData(this);
     }
 
-    public Ingredient getIngredient(){
+    public Ingredient getIngredient() {
         return new Tomato(2,0);
     }
 }

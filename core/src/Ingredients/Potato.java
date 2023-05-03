@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
-public class Potato extends Ingredient{
+public class Potato extends Ingredient {
 
     /**
      * The Potato class represents a specific type of ingredient in the game,
