@@ -2,7 +2,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/team13eng1/piazza-panic/">
+  <a href="https://github.com/HHllmn/Piazza-Panic-Assessment2">
     <img src="assets/Chef/Chef_normal.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -11,10 +11,10 @@
   <p align="center">
     A LibGDX game for ENG1
     <br />
-    <a href="https://github.com/team13eng1/piazza-panic"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/HHllmn/Piazza-Panic-Assessment2"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://team13eng1.github.io/">View Website</a>
+    <a href="https://eng1team14assessment2.github.io/">View Website</a>
   </p>
 </div>
 
@@ -63,7 +63,13 @@ It's a fun little game with serious software engineering principles.
 
 <!-- ACKNOWLEDGMENTS -->
 ## Contributers
+Team 14
 
+* [Harry Hillman](https://github.com/HHllmn)
+* [Jonathan Snelgrove](https://github.com/MedicCrunch)
+* [Josh Beaven](https://github.com/MstBoos)
+
+Team 13
 * [Bailey Findlay](https://github.com/bailey-f)
 * [Chenxi Wu](https://github.com/Chenxwu)
 * [Yuxin Wu](https://github.com/Hereward1883)
