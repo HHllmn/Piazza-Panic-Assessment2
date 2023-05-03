@@ -29,5 +29,6 @@ jobs:
         uses: actions/upload-artifact@v3.1.1
         with:
           name: jacoco-report
-          path: triangle/lib/build/reports/jacoco/test/html/
+          path: Piazza-Panic-Assessment2/tests/src/io/tests/
           
+      
